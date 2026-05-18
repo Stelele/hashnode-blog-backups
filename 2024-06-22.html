@@ -1,0 +1,208 @@
+<section class="py-8"><div class="px-4 sm:px-8"><div class="w-full max-w-full xl:mx-auto xl:max-w-[80rem] 2xl:max-w-[90rem]"><div class="grid gap-5 max-w-full"><article class="w-full max-w-full rounded-xl border bg-card text-card-foreground"><div class="px-5 pt-12 pb-8 sm:px-8"><header class="space-y-5"><div class="space-y-4 text-center max-w-4xl mx-auto"><h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight text-balance text-foreground">WebGPU Basics: How to Create a Triangle</h1><div class="flex flex-wrap items-center justify-center gap-3 text-sm text-muted-foreground"><div class="flex items-center gap-2"><span>Updated</span><time datetime="2024-07-13T17:51:00.221Z">July 13, 2024</time></div><span class="text-muted-foreground">•</span><span>8 min read</span></div></div></header></div><div class="w-full"><img alt="WebGPU Basics: How to Create a Triangle" width="1200" height="750" decoding="async" data-nimg="1" class="w-full h-auto" srcset="/_next/image?url=https%3A%2F%2Fcdn.hashnode.com%2Fres%2Fhashnode%2Fimage%2Fupload%2Fv1719082050870%2F398c86f5-d4df-4936-9d7c-61f459a06969.jpeg&amp;w=1200&amp;q=75 1x, /_next/image?url=https%3A%2F%2Fcdn.hashnode.com%2Fres%2Fhashnode%2Fimage%2Fupload%2Fv1719082050870%2F398c86f5-d4df-4936-9d7c-61f459a06969.jpeg&amp;w=3840&amp;q=75 2x" src="/_next/image?url=https%3A%2F%2Fcdn.hashnode.com%2Fres%2Fhashnode%2Fimage%2Fupload%2Fv1719082050870%2F398c86f5-d4df-4936-9d7c-61f459a06969.jpeg&amp;w=3840&amp;q=75" style="color: transparent; --darkreader-inline-color: transparent;" data-darkreader-inline-color=""></div><div class="px-5 py-12 sm:px-8 space-y-8"><div class="max-w-2xl mx-auto"><div class="flex flex-wrap items-center gap-5"><div class="flex items-center gap-5"><div class="flex gap-3 items-start"><a target="_blank" rel="noopener" href="https://hashnode.com/@giftmugweni"><span class="relative flex shrink-0 overflow-hidden rounded-full h-10 w-10 border border-border transition-opacity hover:opacity-80"><img class="aspect-square h-full w-full" alt="Gift Mugweni" src="https://cdn.hashnode.com/res/hashnode/image/upload/v1715695145793/08835199-4bd3-4f15-9cd8-4d7d42276f2f.jpeg?auto=compress,format&amp;format=webp"></span></a><div class="min-w-0"><div class="flex items-center gap-2"><a target="_blank" rel="noopener" class="font-medium text-foreground hover:text-primary transition-colors" href="https://hashnode.com/@giftmugweni">Gift Mugweni</a><div class="flex items-center gap-1.5 text-sm"><a target="_blank" rel="noopener noreferrer nofollow ugc" class="text-muted-foreground hover:text-foreground transition-colors" aria-label="LinkedIn" href="https://www.linkedin.com/in/gift-mugweni/"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a></div></div><div class="text-sm text-muted-foreground line-clamp-2"><p>Just your chilled programmer sharing random facts I've learnt along my journey.</p>
+</div></div></div></div></div></div><div class="max-w-2xl mx-auto"><a class="group flex items-center gap-3 rounded-lg border border-border px-3 py-2 transition hover:border-primary hover:bg-accent" href="/series/graphics-journey"><i class="fa-jelly fa-layer-group h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" aria-hidden="true"></i><div class="flex flex-col"><span class="text-sm text-muted-foreground">Part of series</span><span class="text-sm font-medium text-foreground group-hover:text-primary transition-colors">Graphics Journey</span></div></a></div><div class="relative"><aside class="hidden xl:block absolute top-0 left-0 h-full"><nav class="sticky top-22 w-44"></nav></aside><div class="max-w-2xl mx-auto min-w-0 contain-[inline-size]"><div class="prose dark:prose-invert prose-pre:bg-foreground prose-pre:text-background prose-pre:border prose-pre:border-border prose-pre:rounded prose-pre:px-5 prose-pre:py-4 dark:prose-pre:bg-muted dark:prose-pre:text-foreground dark:prose-pre:border-border prose-pre:overflow-x-auto max-w-none text-base sm:text-lg [&amp;&gt;div&gt;p:first-child]:mt-0 [&amp;&gt;div&gt;p:first-child]:pt-0 min-w-0 wrap-break-word [&amp;_a]:break-all **:max-w-full"><div><p>Hello 👋, it's been a minute. How's life and all that good stuff? Anyway to get myself back into the groove I thought I'd start where I left off, Graphics Programming specifically using WebGPU.</p>
+<p>In this series, I'll give semi-tutorials on working with WebGPU and the shading language WGSL which I'll explain as and when is necessary so hopefully you can also dive into this crazy world of making art with code and maths.</p>
+<p>To keep things simple, this article will teach you how to make the equivalent of a "Hello World" in shader land which is a triangle because drawing text to screen turns out to be really hard. See this <a target="_blank" href="https://www.youtube.com/watch?v=SO83KQuuZvg&amp;pp=ygUWY29kaW5nIGFkdmVudHVyZXMgdGV4dA%3D%3D" rel="noopener noreferrer nofollow ugc">video</a> if you think I'm lying. With this example, you'll fully get to experience the basic flow of working with WebGPU and I'll also point to some resources I came across that you can read up on that helped me start this journey.</p>
+<p>Before we begin, let's answer a few obvious questions.</p>
+<p><strong>Question: What is WebGPU?</strong></p>
+<p><strong>Answer:</strong> It's a graphics API</p>
+<p><strong>Question: What does that mean?</strong></p>
+<p><strong>Answer:</strong> It is software that helps you utilize the Graphics Card(GPU) that comes with every modern computer/smartphone to either draw stuff on the screen or do more general computations on the graphics card e.g. matrix math.</p>
+<p><strong>Question: Why would I ever need to use a GPU can't my CPU do all that already?</strong></p>
+<p><strong>Answer:</strong> Yes it can but because of how a CPU is designed, as you get more sophisticated with your graphics or you need to do a lot of simple stuff in parallel, it will struggle a lot and not be efficient. That's where we use GPUs that have been purpose-built for such tasks.</p>
+<p>With that preamble in place, let us talk about browser support. As I mentioned in my previous article, WebGPU is still relatively new so, browser support hasn't fully rolled out yet at the time of writing, you can only use the API on the latest Chrome, Edge, Opera, Chrome for Android, Samsung Internet and Opera Mobile browsers. Safari support is present in the Technical Preview only so far. So yeah, as you can see, it hasn't rolled out fully yet but the rollout is being actively worked on and you can check on this <a target="_blank" href="https://caniuse.com/webgpu" rel="noopener noreferrer nofollow ugc">site</a>, where support will be as time goes on. I don't think this browser support state is much of an issue but, it is something to be aware of.</p>
+<p>Now that's done, let's see what we will be drawing today.</p>
+<p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1719054178897/5faee4dc-d03a-471f-9df6-ee2189fd00f6.jpeg" alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
+<p>Looks beautiful right? This triangle and all the following code come from this wonderful site called <a target="_blank" href="https://webgpufundamentals.org/" rel="noopener noreferrer nofollow ugc">WebGPU Fundamentals</a> that goes in-depth into WebGPU and is a great resource to learn about Web GPU but, it does look a bit intimidating when you first visit it so I thought I'd make this series to give an easier entry point to jump off from.</p>
+<p>Although I did say it's an easier entry point, I still need to make some assumptions for brevity. The first assumption is that you are familiar with modern JavaScript and are comfortable with basic HTML and CSS though we won't use the latter two all that much. If you are not familiar with any of these, here are some great playlists made by the YouTuber <a target="_blank" href="https://www.youtube.com/@NetNinja" rel="noopener noreferrer nofollow ugc">The Net Ninja</a> that will get you up to speed. He also makes other great videos in general so feel free to check him out.</p>
+<ul>
+<li><p><a target="_blank" href="https://www.youtube.com/watch?v=Y1BlT4_c_SU&amp;list=PL4cUxeGkcC9ibZ2TSBaGGNrgh4ZgYE6Cc" rel="noopener noreferrer nofollow ugc">Learning HTML</a></p>
+</li>
+<li><p><a target="_blank" href="https://www.youtube.com/watch?v=I9XRrlOOazo&amp;list=PL4cUxeGkcC9gQeDH6xYhmO-db2mhoTSrT" rel="noopener noreferrer nofollow ugc">Learning CSS</a></p>
+</li>
+<li><p><a target="_blank" href="https://www.youtube.com/watch?v=iWOYAxlnaww&amp;list=PL4cUxeGkcC9haFPT7J25Q9GRB_ZkFrQAc" rel="noopener noreferrer nofollow ugc">Learning Modern JavaScript</a></p>
+</li>
+<li><p><a target="_blank" href="https://www.youtube.com/watch?v=ZcQyJ-gxke0&amp;list=PL4cUxeGkcC9jx2TTZk3IGWKSbtugYdrlu" rel="noopener noreferrer nofollow ugc">Learning Async JavaScript</a></p>
+</li>
+</ul>
+<p>Assuming you have explored those resources or already have the basics covered, let's set up our basic HTML page.</p>
+<pre style="position: relative;"><code class="lang-xml hljs language-xml" data-highlighted="yes"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"en"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"viewport"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"width=device-width, initial-scale=1.0"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>WebGPU<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="language-css">
+            <span class="hljs-selector-tag">html</span>, <span class="hljs-selector-tag">body</span> {
+                <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
+                <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
+            }
+
+            <span class="hljs-selector-class">.container</span> {
+                <span class="hljs-attribute">display</span>: flex;
+                <span class="hljs-attribute">min-width</span>: <span class="hljs-number">100%</span>;
+                <span class="hljs-attribute">min-height</span>: <span class="hljs-number">100%</span>;
+                <span class="hljs-attribute">align-items</span>: center;
+                <span class="hljs-attribute">justify-content</span>: center;
+                <span class="hljs-attribute">background-color</span>: black;
+            }
+
+            <span class="hljs-selector-class">.display</span> {
+                <span class="hljs-attribute">min-width</span>: <span class="hljs-number">100%</span>;
+                <span class="hljs-attribute">min-height</span>: <span class="hljs-number">100%</span>;
+            }
+        </span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"main.js"</span> <span class="hljs-attr">defer</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"container"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">canvas</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"webgpu-output"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"display"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">canvas</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code><button class="copy-code-button" aria-label="Copy code" title="Copy code" style="position: absolute; top: 8px; right: 8px; padding: 6px; background: hsl(var(--muted)); border: 1px solid hsl(var(--border)); border-radius: 6px; cursor: pointer; opacity: 0; transition: opacity 0.2s; display: flex; align-items: center; justify-content: center; color: hsl(var(--muted-foreground)); z-index: 10; --darkreader-inline-bg: hsl(oklch(24% .0095 255)); --darkreader-inline-border-short: 1px solid hsl(var(--darkreader-border--border)); --darkreader-inline-color: hsl(oklch(74% .01 255));" data-darkreader-inline-bg="" data-darkreader-inline-border-short="" data-darkreader-inline-color="">
+        <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
+        <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
+      </button></pre>
+<p>So there's nothing fancy with this code snippet here. Just make a basic page and resize the canvas element to which we will be drawing to to fill the entire page. Aside from that, we also include a "main.js" file which will contain all of our code from here on out.</p>
+<p>Before I begin though, look at this meme and internalize it for the rest of this article.</p>
+<p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1719072981518/1bb85b6a-1cf2-4c11-87e8-48c908dc619c.jpeg" alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
+<p>The GPU exists in a different world from the CPU. In GPU land, many things are different and some things that might be simple in the CPU are a nightmare in the GPU and vice versa. Because of this, drawing a triangle ends up being a bit involved.</p>
+<p>Having set your expectations, let us draw our lovely triangle.</p>
+<p>First, we need to get permission to use the GPU. For that, we enter the below code.</p>
+<pre style="position: relative;"><code class="lang-javascript hljs language-javascript" data-highlighted="yes"> <span class="hljs-keyword">function</span> <span class="hljs-title function_">fail</span>(<span class="hljs-params">msg</span>) {
+    <span class="hljs-title function_">alert</span>(msg);
+}
+
+<span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">main</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-comment">// get GPU device</span>
+    <span class="hljs-keyword">const</span> adapter = <span class="hljs-keyword">await</span> navigator.<span class="hljs-property">gpu</span>?.<span class="hljs-title function_">requestAdapter</span>();
+    <span class="hljs-keyword">const</span> device = <span class="hljs-keyword">await</span> adapter?.<span class="hljs-title function_">requestDevice</span>();
+    <span class="hljs-keyword">if</span> (!device) {
+        <span class="hljs-title function_">fail</span>(<span class="hljs-string">'need a browser that supports WebGPU'</span>);
+        <span class="hljs-keyword">return</span>;
+    }
+</code><button class="copy-code-button" aria-label="Copy code" title="Copy code" style="position: absolute; top: 8px; right: 8px; padding: 6px; background: hsl(var(--muted)); border: 1px solid hsl(var(--border)); border-radius: 6px; cursor: pointer; opacity: 0; transition: opacity 0.2s; display: flex; align-items: center; justify-content: center; color: hsl(var(--muted-foreground)); z-index: 10; --darkreader-inline-bg: hsl(oklch(24% .0095 255)); --darkreader-inline-border-short: 1px solid hsl(var(--darkreader-border--border)); --darkreader-inline-color: hsl(oklch(74% .01 255));" data-darkreader-inline-bg="" data-darkreader-inline-border-short="" data-darkreader-inline-color="">
+        <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
+        <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
+      </button></pre>
+<p>Now, I could go in-depth into the fine details going on here but this is a beginners' course so all we need to know is that if the <code>device</code> variable is not <code>undefined</code>, congratulations 👏👏👏 we now have our GPU device and can continue forward. For a more in-depth explanation, check out the <a target="_blank" href="https://webgpufundamentals.org/webgpu/lessons/webgpu-fundamentals.html" rel="noopener noreferrer nofollow ugc">Fundamentals Article</a> on the WebGPU Fundamentals website.</p>
+<p>Moving on, we need to prepare the canvas so that it understands the eventual commands we will send to it.</p>
+<pre style="position: relative;"><code class="lang-javascript hljs language-javascript" data-highlighted="yes">    <span class="hljs-comment">// Get a WebGPU context from the canvas and configure it</span>
+    <span class="hljs-keyword">const</span> canvas = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">'webgpu-output'</span>);
+    <span class="hljs-keyword">const</span> context = canvas.<span class="hljs-title function_">getContext</span>(<span class="hljs-string">'webgpu'</span>);
+    <span class="hljs-keyword">const</span> presentationFormat = navigator.<span class="hljs-property">gpu</span>.<span class="hljs-title function_">getPreferredCanvasFormat</span>();
+    context.<span class="hljs-title function_">configure</span>({
+        device,
+        <span class="hljs-attr">format</span>: presentationFormat,
+    });
+</code><button class="copy-code-button" aria-label="Copy code" title="Copy code" style="position: absolute; top: 8px; right: 8px; padding: 6px; background: hsl(var(--muted)); border: 1px solid hsl(var(--border)); border-radius: 6px; cursor: pointer; opacity: 0; transition: opacity 0.2s; display: flex; align-items: center; justify-content: center; color: hsl(var(--muted-foreground)); z-index: 10; --darkreader-inline-bg: hsl(oklch(24% .0095 255)); --darkreader-inline-border-short: 1px solid hsl(var(--darkreader-border--border)); --darkreader-inline-color: hsl(oklch(74% .01 255));" data-darkreader-inline-bg="" data-darkreader-inline-border-short="" data-darkreader-inline-color="">
+        <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
+        <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
+      </button></pre>
+<p>The main role of this section of code is to ensure that the canvas understands the draw commands it will eventually get from our drawing code.</p>
+<p>Moving on, let's set up our shader code.</p>
+<pre style="position: relative;"><code class="lang-javascript hljs language-javascript" data-highlighted="yes">    <span class="hljs-keyword">const</span> <span class="hljs-variable language_">module</span> = device.<span class="hljs-title function_">createShaderModule</span>({
+        <span class="hljs-attr">label</span>: <span class="hljs-string">'our hardcoded triangle shaders'</span>,
+        <span class="hljs-attr">code</span>: <span class="hljs-string">`
+            // data structure to store output of vertex function
+            struct VertexOut {
+                @builtin(position) pos: vec4f,
+                @location(0) color: vec4f
+            };
+
+            // process the points of the triangle
+            @vertex 
+            fn vs(
+                @builtin(vertex_index) vertexIndex : u32
+            ) -&gt; VertexOut {
+                let pos = array(
+                    vec2f(   0,  0.8),  // top center
+                    vec2f(-0.8, -0.8),  // bottom left
+                    vec2f( 0.8, -0.8)   // bottom right
+                );
+
+                let color = array(
+                    vec4f(1.0, .0, .0, .0),
+                    vec4f( .0, 1., .0, .0),
+                    vec4f( .0, .0, 1., .0)
+                );
+
+                var out: VertexOut;
+                out.pos = vec4f(pos[vertexIndex], 0.0, 1.0);
+                out.color = color[vertexIndex];
+
+                return out;
+            }
+
+            // set the colors of the area within the triangle
+            @fragment 
+            fn fs(in: VertexOut) -&gt; @location(0) vec4f {
+                return in.color;
+            }
+        `</span>,
+    });
+</code><button class="copy-code-button" aria-label="Copy code" title="Copy code" style="position: absolute; top: 8px; right: 8px; padding: 6px; background: hsl(var(--muted)); border: 1px solid hsl(var(--border)); border-radius: 6px; cursor: pointer; opacity: 0; transition: opacity 0.2s; display: flex; align-items: center; justify-content: center; color: hsl(var(--muted-foreground)); z-index: 10; --darkreader-inline-bg: hsl(oklch(24% .0095 255)); --darkreader-inline-border-short: 1px solid hsl(var(--darkreader-border--border)); --darkreader-inline-color: hsl(oklch(74% .01 255));" data-darkreader-inline-bg="" data-darkreader-inline-border-short="" data-darkreader-inline-color="">
+        <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
+        <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
+      </button></pre>
+<p>This right here is the meat of the topic. I understand that this code can be overwhelming so, let's make broad strokes for now. To understand this code, we need a basic understanding of how GPUs draw stuff on the screen.</p>
+<p>The first important point is when drawing, GPUs only understand points, lines and triangles. Thats it. Everything that appears on the screen is decomposed into these fundamental elements. Hence, we need to think of things from this perspective to get our lovely visual showing.</p>
+<p>The next important point is the order in which the GPUs carry out the drawing. First, it establishes all the points(vertices) of the shape we want to draw. Then it groups all three points into triangles. Afterwards, it colours in all the grouped triangles.</p>
+<p>With this framework in mind, we can see a function called <code>vs</code> and another called <code>fs</code> . The <code>vs</code> function is where we process all our points and do any transformations if we want to whilst the <code>fs</code> function is responsible for the colouring of the respective triangles. For our starting point, I think this is good enough and if you want to know more, check out the <a target="_blank" href="https://webgpufundamentals.org/webgpu/lessons/webgpu-fundamentals.html" rel="noopener noreferrer nofollow ugc">Fundamentals Article</a> on the WebGPU Fundamentals website.</p>
+<p>Now that we've had our meat, it's time to face the bone and that's us doing all the necessary plumbing to actually draw the triangle. Right now, we're still writing stuff in CPU land and we need to send this information to GPU land. and for that, we use the below code to do that transfer.</p>
+<pre style="position: relative;"><code class="lang-javascript hljs language-javascript" data-highlighted="yes">    <span class="hljs-keyword">const</span> pipeline = device.<span class="hljs-title function_">createRenderPipeline</span>({
+        <span class="hljs-attr">label</span>: <span class="hljs-string">'our hardcoded red triangle pipeline'</span>,
+        <span class="hljs-attr">layout</span>: <span class="hljs-string">'auto'</span>,
+        <span class="hljs-attr">vertex</span>: {
+        <span class="hljs-variable language_">module</span>,
+        },
+        <span class="hljs-attr">fragment</span>: {
+        <span class="hljs-variable language_">module</span>,
+        <span class="hljs-attr">targets</span>: [{ <span class="hljs-attr">format</span>: presentationFormat }],
+        },
+    });
+
+    <span class="hljs-keyword">const</span> renderPassDescriptor = {
+        <span class="hljs-attr">label</span>: <span class="hljs-string">'our basic canvas renderPass'</span>,
+        <span class="hljs-attr">colorAttachments</span>: [
+        {
+            <span class="hljs-comment">// view: &lt;- to be filled out when we render</span>
+            <span class="hljs-attr">clearValue</span>: [<span class="hljs-number">0.3</span>, <span class="hljs-number">0.3</span>, <span class="hljs-number">0.3</span>, <span class="hljs-number">1</span>],
+            <span class="hljs-attr">loadOp</span>: <span class="hljs-string">'clear'</span>,
+            <span class="hljs-attr">storeOp</span>: <span class="hljs-string">'store'</span>,
+        },
+        ],
+    };
+
+    <span class="hljs-keyword">function</span> <span class="hljs-title function_">render</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-comment">// Get the current texture from the canvas context and</span>
+        <span class="hljs-comment">// set it as the texture to render to.</span>
+        renderPassDescriptor.<span class="hljs-property">colorAttachments</span>[<span class="hljs-number">0</span>].<span class="hljs-property">view</span> =
+            context.<span class="hljs-title function_">getCurrentTexture</span>().<span class="hljs-title function_">createView</span>();
+
+        <span class="hljs-comment">// make a command encoder to start encoding commands</span>
+        <span class="hljs-keyword">const</span> encoder = device.<span class="hljs-title function_">createCommandEncoder</span>({ <span class="hljs-attr">label</span>: <span class="hljs-string">'our encoder'</span> });
+
+        <span class="hljs-comment">// make a render pass encoder to encode render specific commands</span>
+        <span class="hljs-keyword">const</span> pass = encoder.<span class="hljs-title function_">beginRenderPass</span>(renderPassDescriptor);
+        pass.<span class="hljs-title function_">setPipeline</span>(pipeline);
+        pass.<span class="hljs-title function_">draw</span>(<span class="hljs-number">3</span>);  <span class="hljs-comment">// call our vertex shader 3 times.</span>
+        pass.<span class="hljs-title function_">end</span>();
+
+        <span class="hljs-keyword">const</span> commandBuffer = encoder.<span class="hljs-title function_">finish</span>();
+        device.<span class="hljs-property">queue</span>.<span class="hljs-title function_">submit</span>([commandBuffer]);
+    }
+
+    <span class="hljs-title function_">render</span>();
+</code><button class="copy-code-button" aria-label="Copy code" title="Copy code" style="position: absolute; top: 8px; right: 8px; padding: 6px; background: hsl(var(--muted)); border: 1px solid hsl(var(--border)); border-radius: 6px; cursor: pointer; opacity: 0; transition: opacity 0.2s; display: flex; align-items: center; justify-content: center; color: hsl(var(--muted-foreground)); z-index: 10; --darkreader-inline-bg: hsl(oklch(24% .0095 255)); --darkreader-inline-border-short: 1px solid hsl(var(--darkreader-border--border)); --darkreader-inline-color: hsl(oklch(74% .01 255));" data-darkreader-inline-bg="" data-darkreader-inline-border-short="" data-darkreader-inline-color="">
+        <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
+        <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
+      </button></pre>
+<p>Again, quite a chunky bit of code here but at its core, we're just setting things up so that we can transfer our shader code to the GPU. You'd be correct to feel that this feels like too much work for such a basic triangle but bear in mind that our current use case isn't what WebGPU was made for. It's designed for drawing multiple objects moving in potentially complex patterns. At that point, it helps to think of drawing stuff in batches and the above code structure helps support that method of thinking.</p>
+<p>And with that, we're done. You, my friend, if you've followed along now have your first-ever triangle on screen and you are destined for greatness. So what's next after this?</p>
+<p>If you're hooked, try out the <a target="_blank" href="https://codelabs.developers.google.com/your-first-webgpu-app#0" rel="noopener noreferrer nofollow ugc">Google Codelab project</a> where you get to recreate the classic Conway's Game of Life and learn more about WebGPU.</p>
+<p>I've placed all the code discussed here in a GitHub repo <a target="_blank" href="https://github.com/Stelele/blog-webgpu-hello-world" rel="noopener noreferrer nofollow ugc">here</a>. I'd recommend you write it yourself instead. You always learn more that way instead.</p>
+<p>In my next article, I'll talk about making much nicer visuals and hopefully get deeper into exploring shaders now that we've gotten the foundation in place.</p>
+</div></div></div></div><div class="max-w-2xl mx-auto border-t border-border pt-8 space-y-5"><div class="flex flex-wrap items-center gap-2"><a class="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 text-sm text-muted-foreground transition hover:border-primary hover:text-primary" href="/tag/webgpu">#webgpu</a><a class="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 text-sm text-muted-foreground transition hover:border-primary hover:text-primary" href="/tag/graphicsprogramming">#graphicsprogramming</a><a class="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 text-sm text-muted-foreground transition hover:border-primary hover:text-primary" href="/tag/tutorial">#tutorial</a><a class="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 text-sm text-muted-foreground transition hover:border-primary hover:text-primary" href="/tag/beginner">#beginner</a></div></div></div></article></div></div></div></section>
+
+

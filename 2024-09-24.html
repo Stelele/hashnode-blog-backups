@@ -1,0 +1,399 @@
+<section class="py-8"><div class="px-4 sm:px-8"><div class="w-full max-w-full xl:mx-auto xl:max-w-[80rem] 2xl:max-w-[90rem]"><div class="grid gap-5 max-w-full"><article class="w-full max-w-full rounded-xl border bg-card text-card-foreground"><div class="px-5 pt-12 pb-8 sm:px-8"><header class="space-y-5"><div class="space-y-4 text-center max-w-4xl mx-auto"><h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight text-balance text-foreground">How to Set Up a Simple Rendering Loop in WebGPU</h1><div class="flex flex-wrap items-center justify-center gap-3 text-sm text-muted-foreground"><div class="flex items-center gap-2"><span>Updated</span><time datetime="2024-12-24T09:47:53.096Z">December 24, 2024</time></div><span class="text-muted-foreground">•</span><span>11<!-- --> min read</span></div></div></header></div><div class="w-full"><img alt="How to Set Up a Simple Rendering Loop in WebGPU" width="1200" height="750" decoding="async" data-nimg="1" class="w-full h-auto" style="color: transparent; --darkreader-inline-color: transparent;" srcset="/_next/image?url=https%3A%2F%2Fcdn.hashnode.com%2Fres%2Fhashnode%2Fimage%2Fupload%2Fv1727122748265%2Ff0a7f20e-fc3b-4872-9fcc-acd1592844ae.jpeg&amp;w=1200&amp;q=75 1x, /_next/image?url=https%3A%2F%2Fcdn.hashnode.com%2Fres%2Fhashnode%2Fimage%2Fupload%2Fv1727122748265%2Ff0a7f20e-fc3b-4872-9fcc-acd1592844ae.jpeg&amp;w=3840&amp;q=75 2x" src="/_next/image?url=https%3A%2F%2Fcdn.hashnode.com%2Fres%2Fhashnode%2Fimage%2Fupload%2Fv1727122748265%2Ff0a7f20e-fc3b-4872-9fcc-acd1592844ae.jpeg&amp;w=3840&amp;q=75" data-darkreader-inline-color=""></div><div class="px-5 py-12 sm:px-8 space-y-8"><div class="max-w-2xl mx-auto"><div class="flex flex-wrap items-center gap-5"><div class="flex items-center gap-5"><div class="flex gap-3 items-start"><a target="_blank" rel="noopener" href="https://hashnode.com/@giftmugweni"><span class="relative flex shrink-0 overflow-hidden rounded-full h-10 w-10 border border-border transition-opacity hover:opacity-80"><img class="aspect-square h-full w-full" alt="Gift Mugweni" src="https://cdn.hashnode.com/res/hashnode/image/upload/v1715695145793/08835199-4bd3-4f15-9cd8-4d7d42276f2f.jpeg?auto=compress,format&amp;format=webp"></span></a><div class="min-w-0"><div class="flex items-center gap-2"><a target="_blank" rel="noopener" class="font-medium text-foreground hover:text-primary transition-colors" href="https://hashnode.com/@giftmugweni">Gift Mugweni</a><div class="flex items-center gap-1.5 text-sm"><a target="_blank" rel="noopener noreferrer nofollow ugc" class="text-muted-foreground hover:text-foreground transition-colors" aria-label="LinkedIn" href="https://www.linkedin.com/in/gift-mugweni/"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a></div></div><div class="text-sm text-muted-foreground line-clamp-2"><p>Just your chilled programmer sharing random facts I've learnt along my journey.</p>
+</div></div></div></div></div></div><div class="max-w-2xl mx-auto"><a class="group flex items-center gap-3 rounded-lg border border-border px-3 py-2 transition hover:border-primary hover:bg-accent" href="/series/graphics-journey"><i class="fa-jelly fa-layer-group h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" aria-hidden="true"></i><div class="flex flex-col"><span class="text-sm text-muted-foreground">Part of series</span><span class="text-sm font-medium text-foreground group-hover:text-primary transition-colors">Graphics Journey</span></div></a></div><div class="relative"><aside class="hidden xl:block absolute top-0 left-0 h-full"><nav class="sticky top-22 w-44"><div class="hidden xl:block group/toc relative"><div class="grid"><div class="[grid-area:1/1] opacity-0 group-hover/toc:opacity-100 transition-opacity duration-200 max-h-[calc(100vh-3rem)] overflow-y-auto"><p class="text-sm font-semibold uppercase tracking-wide text-muted-foreground mb-3">On this page</p><nav aria-label="On this page"><a class="block py-1 text-sm transition-colors hover:text-foreground text-muted-foreground" style="padding-left:0rem" href="#heading-canvas-resizing">Canvas Resizing</a><a class="block py-1 text-sm transition-colors hover:text-foreground text-muted-foreground" style="padding-left:0rem" href="#heading-rendering-abitrary-shapes">Rendering Abitrary Shapes</a><a class="block py-1 text-sm transition-colors hover:text-foreground text-muted-foreground" style="padding-left:0.75rem" href="#heading-what-are-uniforms-and-vertex-buffers">What are Uniforms and Vertex Buffers?</a><a class="block py-1 text-sm transition-colors hover:text-foreground text-muted-foreground" style="padding-left:0.75rem" href="#heading-rewriting-the-shaders">Rewriting the shaders</a><a class="block py-1 text-sm transition-colors hover:text-foreground text-muted-foreground" style="padding-left:0.75rem" href="#heading-configuring-the-buffers">Configuring the buffers</a><a class="block py-1 text-sm transition-colors hover:text-foreground text-muted-foreground" style="padding-left:0rem" href="#heading-rendering-loop">Rendering Loop</a><a class="block py-1 text-sm transition-colors hover:text-foreground text-muted-foreground" style="padding-left:0rem" href="#heading-game-engine-wrapper">Game Engine Wrapper</a><a class="block py-1 text-sm transition-colors hover:text-foreground text-muted-foreground" style="padding-left:0rem" href="#heading-conclusion">Conclusion</a></nav></div><div class="[grid-area:1/1] relative flex flex-col gap-px transition-opacity duration-200 group-hover/toc:opacity-0 pointer-events-none self-start max-h-[calc(100vh-3rem)] overflow-hidden pl-3"><div class="absolute left-0 w-0.5 rounded-full bg-foreground transition-all duration-300 opacity-0" style="transform:translateY(0px);height:12px"></div><div class="flex items-center h-3" style="padding-left:0px"><div class="h-0.5 rounded-full transition-all duration-300 bg-border" style="width:15px"></div></div><div class="flex items-center h-3" style="padding-left:0px"><div class="h-0.5 rounded-full transition-all duration-300 bg-border" style="width:43px"></div></div><div class="flex items-center h-3" style="padding-left:10px"><div class="h-0.5 rounded-full transition-all duration-300 bg-border" style="width:37px"></div></div><div class="flex items-center h-3" style="padding-left:10px"><div class="h-0.5 rounded-full transition-all duration-300 bg-border" style="width:21px"></div></div><div class="flex items-center h-3" style="padding-left:10px"><div class="h-0.5 rounded-full transition-all duration-300 bg-border" style="width:23px"></div></div><div class="flex items-center h-3" style="padding-left:0px"><div class="h-0.5 rounded-full transition-all duration-300 bg-border" style="width:14px"></div></div><div class="flex items-center h-3" style="padding-left:0px"><div class="h-0.5 rounded-full transition-all duration-300 bg-border" style="width:19px"></div></div><div class="flex items-center h-3" style="padding-left:0px"><div class="h-0.5 rounded-full transition-all duration-300 bg-border" style="width:10px"></div></div></div></div></div></nav></aside><div class="max-w-2xl mx-auto min-w-0 contain-[inline-size]"><div class="prose dark:prose-invert prose-pre:bg-foreground prose-pre:text-background prose-pre:border prose-pre:border-border prose-pre:rounded prose-pre:px-5 prose-pre:py-4 dark:prose-pre:bg-muted dark:prose-pre:text-foreground dark:prose-pre:border-border prose-pre:overflow-x-auto max-w-none text-base sm:text-lg [&amp;&gt;div&gt;p:first-child]:mt-0 [&amp;&gt;div&gt;p:first-child]:pt-0 min-w-0 wrap-break-word [&amp;_a]:break-all **:max-w-full"><div><p>Hello 🙋‍♂️🙋‍♂️ you good? How have you been 😁? I'm great and all, sorry for the delayed article but I think we both know my release consistency by now. So with that out the way let’s get down to business.</p>
+<p>In my last article, I showed how to set up the WebGPU project for TypeScript which I find to be a nicer working experience but your mileage may vary. It worked great and we got to see our lovely, beautiful, one-of-a-kind triangle aaaaaannnnndddd that’s the problem.</p>
+<p>As I mentioned previously, we're making a game engine and well, we need to do a loooottt more than just drawing a single triangle on the screen but hey, baby steps you know. So, let’s add more features to our rendering class to make it a bit more interesting.</p>
+<p>By the end of this article, you should have done the following</p>
+<ul>
+<li><p>Implemented automatic canvas resizing to fill the window</p>
+</li>
+<li><p>Learned a bit more about WebGPU features (uniforms, vertex buffers, bind groups, etc)</p>
+</li>
+<li><p>Created slightly more complex shaders that render arbitrary shapes and colours</p>
+</li>
+<li><p>Created a rendering loop using RequestAnimationFrame</p>
+</li>
+<li><p>Created a wrapper class for our Game Engine features</p>
+</li>
+</ul>
+<h2 id="heading-canvas-resizing">Canvas Resizing</h2>
+<p>This is a simple piece of code which will automatically resize the canvas to fill the screen. It’s not perfect but I found it works well enough for my purpose.</p>
+<pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes"><span class="hljs-comment">// Renderer.ts</span>
+   <span class="hljs-keyword">private</span> <span class="hljs-title function_">setupCanvasResizing</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">resize</span>(<span class="hljs-params"><span class="hljs-attr">renderer</span>: <span class="hljs-title class_">Renderer</span></span>) {
+            renderer.<span class="hljs-property">canvas</span>.<span class="hljs-property">width</span> = <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">max</span>(<span class="hljs-number">1</span>, <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">min</span>(<span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-property">clientWidth</span>, renderer.<span class="hljs-property">device</span>.<span class="hljs-property">limits</span>.<span class="hljs-property">maxTextureDimension2D</span>))
+            renderer.<span class="hljs-property">canvas</span>.<span class="hljs-property">height</span> = <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">max</span>(<span class="hljs-number">1</span>, <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">min</span>(<span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-property">clientHeight</span>, renderer.<span class="hljs-property">device</span>.<span class="hljs-property">limits</span>.<span class="hljs-property">maxTextureDimension2D</span>))
+        }
+
+        <span class="hljs-variable language_">window</span>.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">'resize'</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">resize</span>(<span class="hljs-variable language_">this</span>))
+        <span class="hljs-title function_">resize</span>(<span class="hljs-variable language_">this</span>)
+    }
+</code><button class="copy-code-button" aria-label="Copy code" title="Copy code" style="position: absolute; top: 8px; right: 8px; padding: 6px; background: hsl(var(--muted)); border: 1px solid hsl(var(--border)); border-radius: 6px; cursor: pointer; opacity: 0; transition: opacity 0.2s; display: flex; align-items: center; justify-content: center; color: hsl(var(--muted-foreground)); z-index: 10; --darkreader-inline-bg: hsl(oklch(24% .0095 255)); --darkreader-inline-border-short: 1px solid hsl(var(--darkreader-border--border)); --darkreader-inline-color: hsl(oklch(74% .01 255));" data-darkreader-inline-bg="" data-darkreader-inline-border-short="" data-darkreader-inline-color="">
+        <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
+        <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
+      </button></pre>
+<p>As seen from the function, it detects when the window resizing event occurs and sets the canvas to fill the window but it has a min of 1 and a max value based on the maximum texture dimension supported by the GPU device.</p>
+<h2 id="heading-rendering-abitrary-shapes">Rendering Abitrary Shapes</h2>
+<p>At the moment our shaders look like this</p>
+<pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes"><span class="hljs-comment">/** Vertext Shader **/</span>
+            <span class="hljs-comment">// data structure to store output of vertex function</span>
+            struct <span class="hljs-title class_">VertexOut</span> {
+                <span class="hljs-meta">@builtin</span>(position) <span class="hljs-attr">pos</span>: vec4f,
+                <span class="hljs-meta">@location</span>(<span class="hljs-number">0</span>) <span class="hljs-attr">color</span>: vec4f
+            };
+
+            <span class="hljs-comment">// process the points of the triangle</span>
+            <span class="hljs-meta">@vertex</span> 
+            fn <span class="hljs-title function_">vs</span>(
+                <span class="hljs-meta">@builtin</span>(vertex_index) vertexIndex : u32
+            ) -&gt; <span class="hljs-title class_">VertexOut</span> {
+                <span class="hljs-keyword">let</span> pos = <span class="hljs-title function_">array</span>(
+                    <span class="hljs-title function_">vec2f</span>(   <span class="hljs-number">0</span>,  <span class="hljs-number">0.8</span>),  <span class="hljs-comment">// top center</span>
+                    <span class="hljs-title function_">vec2f</span>(-<span class="hljs-number">0.8</span>, -<span class="hljs-number">0.8</span>),  <span class="hljs-comment">// bottom left</span>
+                    <span class="hljs-title function_">vec2f</span>( <span class="hljs-number">0.8</span>, -<span class="hljs-number">0.8</span>)   <span class="hljs-comment">// bottom right</span>
+                );
+
+                <span class="hljs-keyword">let</span> color = <span class="hljs-title function_">array</span>(
+                    <span class="hljs-title function_">vec4f</span>(<span class="hljs-number">1.0</span>, <span class="hljs-number">.0</span>, <span class="hljs-number">.0</span>, <span class="hljs-number">.0</span>),
+                    <span class="hljs-title function_">vec4f</span>( <span class="hljs-number">.0</span>, <span class="hljs-number">1.</span>, <span class="hljs-number">.0</span>, <span class="hljs-number">.0</span>),
+                    <span class="hljs-title function_">vec4f</span>( <span class="hljs-number">.0</span>, <span class="hljs-number">.0</span>, <span class="hljs-number">1.</span>, <span class="hljs-number">.0</span>)
+                );
+
+                <span class="hljs-keyword">var</span> <span class="hljs-attr">out</span>: <span class="hljs-title class_">VertexOut</span>;
+                out.<span class="hljs-property">pos</span> = <span class="hljs-title function_">vec4f</span>(pos[vertexIndex], <span class="hljs-number">0.0</span>, <span class="hljs-number">1.0</span>);
+                out.<span class="hljs-property">color</span> = color[vertexIndex];
+
+                <span class="hljs-keyword">return</span> out;
+            }
+
+<span class="hljs-comment">/** Fragment Shader **/</span>
+            <span class="hljs-comment">// set the colors of the area within the triangle</span>
+            <span class="hljs-meta">@fragment</span> 
+            fn <span class="hljs-title function_">fs</span>(<span class="hljs-attr">in</span>: <span class="hljs-title class_">VertexOut</span>) -&gt; <span class="hljs-meta">@location</span>(<span class="hljs-number">0</span>) vec4f {
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">in</span>.<span class="hljs-property">color</span>;
+            }
+</code><button class="copy-code-button" aria-label="Copy code" title="Copy code" style="position: absolute; top: 8px; right: 8px; padding: 6px; background: hsl(var(--muted)); border: 1px solid hsl(var(--border)); border-radius: 6px; cursor: pointer; opacity: 0; transition: opacity 0.2s; display: flex; align-items: center; justify-content: center; color: hsl(var(--muted-foreground)); z-index: 10; --darkreader-inline-bg: hsl(oklch(24% .0095 255)); --darkreader-inline-border-short: 1px solid hsl(var(--darkreader-border--border)); --darkreader-inline-color: hsl(oklch(74% .01 255));" data-darkreader-inline-bg="" data-darkreader-inline-border-short="" data-darkreader-inline-color="">
+        <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
+        <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
+      </button></pre>
+<p>The issue with the shader is that it is not configurable. Once you’ve run it you’ll always get back the same triangle with the same color. To resolve this, we need to use more functionality of the GPU namely, Uniforms and Vertex Buffers. Now you might ask what are these things?</p>
+<h3 id="heading-what-are-uniforms-and-vertex-buffers">What are Uniforms and Vertex Buffers?</h3>
+<p>Let’s start by explaining vertex buffers. As you recall from one of my prior posts, when the GPU is rendering things, it uses the vertex and fragment shader. The vertex shader defines the bounds of where the rendering will occur and the fragment shader is responsible for filling in the shape with the appropriate colors.</p>
+<p>Whilst an oversimplification of the process, it gets the idea across and if you want to learn more, check out this <a target="_blank" href="https://webgpufundamentals.org/webgpu/lessons/webgpu-fundamentals.html" rel="noopener noreferrer nofollow ugc">article</a>. As you can imagine, the vertex buffer is probably gonna get used by the vertex shader but for what? Well in short, we use the vertex buffer to pass in whatever information we want to the vertex shader but you might typically add in all the vertices that define the boundary of the shape we want to render. To learn more about vertex buffers check out this <a target="_blank" href="https://webgpufundamentals.org/webgpu/lessons/webgpu-vertex-buffers.html" rel="noopener noreferrer nofollow ugc">article</a>.</p>
+<p>Moving on to uniforms, they’re also a facility offered by GPUs where we can pass in information to the GPU but whose contents will remain constant across each render. They can also be used by both the vertex and fragment shaders and can be thought of as global variables. This is again an oversimplification and you can learn more from this <a target="_blank" href="https://webgpufundamentals.org/webgpu/lessons/webgpu-uniforms.html" rel="noopener noreferrer nofollow ugc">article</a>.</p>
+<p>With this all said, let’s now refactor our code to use uniforms and vertex buffers.</p>
+<h3 id="heading-rewriting-the-shaders">Rewriting the shaders</h3>
+<p>Create a new file called <code>shaders.ts</code> and you can dump in the following new shader code.</p>
+<pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes"><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title class_">Uniforms</span> = <span class="hljs-comment">/* wgsl */</span> <span class="hljs-string">`
+    @group(0) @binding(0) var&lt;uniform&gt; color: vec4f;
+`</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title class_">SimpleVS</span> = <span class="hljs-comment">/* wgsl */</span> <span class="hljs-string">`
+    struct VertexIn {
+        @location(0) pos: vec2f,
+        @builtin(vertex_index) index: u32
+    }
+
+    <span class="hljs-subst">${Uniforms}</span>
+
+    @vertex
+    fn vs(in: VertexIn) -&gt; @builtin(position) vec4f {
+        return vec4f(in.pos, .0, 1.);
+    }
+`</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title class_">SimpleFS</span> = <span class="hljs-comment">/* wgsl */</span> <span class="hljs-string">`
+    <span class="hljs-subst">${Uniforms}</span>
+
+    @fragment
+    fn fs() -&gt; @location(0) vec4f {
+        return color;
+    }
+`</span>
+</code><button class="copy-code-button" aria-label="Copy code" title="Copy code" style="position: absolute; top: 8px; right: 8px; padding: 6px; background: hsl(var(--muted)); border: 1px solid hsl(var(--border)); border-radius: 6px; cursor: pointer; opacity: 0; transition: opacity 0.2s; display: flex; align-items: center; justify-content: center; color: hsl(var(--muted-foreground)); z-index: 10; --darkreader-inline-bg: hsl(oklch(24% .0095 255)); --darkreader-inline-border-short: 1px solid hsl(var(--darkreader-border--border)); --darkreader-inline-color: hsl(oklch(74% .01 255));" data-darkreader-inline-bg="" data-darkreader-inline-border-short="" data-darkreader-inline-color="">
+        <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
+        <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
+      </button></pre>
+<p>The first thing you’ll notice is the new uniform that I defined that will store the colour information of my final output. For my purposes, I only care about rendering things with a constant colour and not an interpolated colour because it’ll make things easier to predict as time goes by. I’m also passing in the input into the vertex shader as a struct because it’ll keep things neater.</p>
+<p>An interesting thing you might notice is the <code>@group(0) @binding(0)</code> and the <code>@location(0)</code> in the struct. These will be used in TypeScript land to map the information we want to pass into our uniform and vertex buffer respectively as is shown below.</p>
+<h3 id="heading-configuring-the-buffers">Configuring the buffers</h3>
+<p>In our <code>Renderer.ts</code> we now need to rewrite some of our code to allow the loading and setting up of the shaders and buffers.</p>
+<p>First, we rewrite our function for loading in the shaders.</p>
+<pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-keyword">public</span> <span class="hljs-title function_">loadShaders</span>(<span class="hljs-params"><span class="hljs-attr">vertexShader</span>?: <span class="hljs-built_in">string</span>, <span class="hljs-attr">fragmentShader</span>?: <span class="hljs-built_in">string</span></span>) {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">loadVertexShader</span>(vertexShader)
+        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">loadFragmentShader</span>(fragmentShader)
+
+        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">configureBindGroupLayout</span>()
+        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">configurePipeline</span>()
+    }
+</code><button class="copy-code-button" aria-label="Copy code" title="Copy code" style="position: absolute; top: 8px; right: 8px; padding: 6px; background: hsl(var(--muted)); border: 1px solid hsl(var(--border)); border-radius: 6px; cursor: pointer; opacity: 0; transition: opacity 0.2s; display: flex; align-items: center; justify-content: center; color: hsl(var(--muted-foreground)); z-index: 10; --darkreader-inline-bg: hsl(oklch(24% .0095 255)); --darkreader-inline-border-short: 1px solid hsl(var(--darkreader-border--border)); --darkreader-inline-color: hsl(oklch(74% .01 255));" data-darkreader-inline-bg="" data-darkreader-inline-border-short="" data-darkreader-inline-color="">
+        <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
+        <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
+      </button></pre>
+<p>You’ll notice that we now also have the ability to pass in our vertex and fragment shaders respectively. We also introduced the configuring of the pipeline and something called the bind group layout. This is because we need to reconfigure the pipeline to reference the new shaders.</p>
+<p>Moving on, let’s look at the loading of the vertex and fragment shaders</p>
+<pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-keyword">private</span> <span class="hljs-title function_">loadVertexShader</span>(<span class="hljs-params"><span class="hljs-attr">shader</span>?: <span class="hljs-built_in">string</span></span>) {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">vertexShader</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">device</span>.<span class="hljs-title function_">createShaderModule</span>({
+            <span class="hljs-attr">label</span>: <span class="hljs-string">"Vertex Shader"</span>,
+            <span class="hljs-attr">code</span>: shader ?? <span class="hljs-comment">/* wgsl */</span><span class="hljs-string">`
+                @vertex
+                fn vs() -&gt; @builtin(position) vec4f {
+                    return vec4f(.0);
+                }
+            `</span>
+        })
+    }
+
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">loadFragmentShader</span>(<span class="hljs-params"><span class="hljs-attr">shader</span>?: <span class="hljs-built_in">string</span></span>) {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">fragmentShader</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">device</span>.<span class="hljs-title function_">createShaderModule</span>({
+            <span class="hljs-attr">label</span>: <span class="hljs-string">"Fragment Shader"</span>,
+            <span class="hljs-attr">code</span>: shader ?? <span class="hljs-comment">/* wgsl */</span><span class="hljs-string">`
+                @fragment
+                fn fs() -&gt; @location(0) vec4f {
+                    return vec4f(.0);
+                }
+            `</span>,
+        })
+    }
+</code><button class="copy-code-button" aria-label="Copy code" title="Copy code" style="position: absolute; top: 8px; right: 8px; padding: 6px; background: hsl(var(--muted)); border: 1px solid hsl(var(--border)); border-radius: 6px; cursor: pointer; opacity: 0; transition: opacity 0.2s; display: flex; align-items: center; justify-content: center; color: hsl(var(--muted-foreground)); z-index: 10; --darkreader-inline-bg: hsl(oklch(24% .0095 255)); --darkreader-inline-border-short: 1px solid hsl(var(--darkreader-border--border)); --darkreader-inline-color: hsl(oklch(74% .01 255));" data-darkreader-inline-bg="" data-darkreader-inline-border-short="" data-darkreader-inline-color="">
+        <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
+        <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
+      </button></pre>
+<p>As you can see, these functions are relatively simple with the addition of default shaders shaders that effectively render nothing.</p>
+<p>Next let’s configure the pipeline</p>
+<pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-keyword">private</span> <span class="hljs-title function_">configureBindGroupLayout</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">bindGroupLayout</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">device</span>.<span class="hljs-title function_">createBindGroupLayout</span>({
+            <span class="hljs-attr">label</span>: <span class="hljs-string">"Bind Group Layout"</span>,
+            <span class="hljs-attr">entries</span>: [
+                {
+                    <span class="hljs-attr">binding</span>: <span class="hljs-number">0</span>,
+                    <span class="hljs-attr">visibility</span>: <span class="hljs-title class_">GPUShaderStage</span>.<span class="hljs-property">VERTEX</span> | <span class="hljs-title class_">GPUShaderStage</span>.<span class="hljs-property">FRAGMENT</span>,
+                    <span class="hljs-attr">buffer</span>: { <span class="hljs-attr">type</span>: <span class="hljs-string">"uniform"</span> }
+                }
+            ]
+        })
+
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">pipelineLayout</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">device</span>.<span class="hljs-title function_">createPipelineLayout</span>({
+            <span class="hljs-attr">label</span>: <span class="hljs-string">"Pipeline Layout"</span>,
+            <span class="hljs-attr">bindGroupLayouts</span>: [
+                <span class="hljs-variable language_">this</span>.<span class="hljs-property">bindGroupLayout</span>
+            ]
+        })
+    }
+
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">configurePipeline</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">pipeline</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">device</span>.<span class="hljs-title function_">createRenderPipeline</span>({
+            <span class="hljs-attr">label</span>: <span class="hljs-string">"Render Pipeline"</span>,
+            <span class="hljs-attr">layout</span>: <span class="hljs-variable language_">this</span>.<span class="hljs-property">pipelineLayout</span>,
+            <span class="hljs-attr">vertex</span>: {
+                <span class="hljs-attr">module</span>: <span class="hljs-variable language_">this</span>.<span class="hljs-property">vertexShader</span>,
+                <span class="hljs-attr">buffers</span>: [
+                    {
+                        <span class="hljs-attr">arrayStride</span>: <span class="hljs-number">2</span> * <span class="hljs-number">4</span>,
+                        <span class="hljs-attr">attributes</span>: [
+                            { <span class="hljs-attr">shaderLocation</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">offset</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">format</span>: <span class="hljs-string">"float32x2"</span> }
+                        ]
+                    }
+                ]
+            },
+            <span class="hljs-attr">fragment</span>: {
+                <span class="hljs-attr">module</span>: <span class="hljs-variable language_">this</span>.<span class="hljs-property">fragmentShader</span>,
+                <span class="hljs-attr">targets</span>: [{ <span class="hljs-attr">format</span>: <span class="hljs-variable language_">this</span>.<span class="hljs-property">presentationFormat</span> }]
+            }
+        })
+    }
+</code><button class="copy-code-button" aria-label="Copy code" title="Copy code" style="position: absolute; top: 8px; right: 8px; padding: 6px; background: hsl(var(--muted)); border: 1px solid hsl(var(--border)); border-radius: 6px; cursor: pointer; opacity: 0; transition: opacity 0.2s; display: flex; align-items: center; justify-content: center; color: hsl(var(--muted-foreground)); z-index: 10; --darkreader-inline-bg: hsl(oklch(24% .0095 255)); --darkreader-inline-border-short: 1px solid hsl(var(--darkreader-border--border)); --darkreader-inline-color: hsl(oklch(74% .01 255));" data-darkreader-inline-bg="" data-darkreader-inline-border-short="" data-darkreader-inline-color="">
+        <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
+        <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
+      </button></pre>
+<p>Something to take note of now is that we are specifically creating a layout for the pipeline instead of passing in the <code>‘auto’</code> keyword that tries to generate the layout automatically. This is no longer possible because we have uniforms that need specific mappings. Aside from that, we also set provisions for the vertex buffer in the vertex pipeline. Now there are a lot of moving parts here but you can find out why we need to do this by reading <a target="_blank" href="https://webgpufundamentals.org/webgpu/lessons/webgpu-inter-stage-variables.html" rel="noopener noreferrer nofollow ugc">this</a>, <a target="_blank" href="https://webgpufundamentals.org/webgpu/lessons/webgpu-uniforms.html" rel="noopener noreferrer nofollow ugc">this</a>, and <a target="_blank" href="https://webgpufundamentals.org/webgpu/lessons/webgpu-vertex-buffers.html" rel="noopener noreferrer nofollow ugc">that</a> article. 😁 Enjoy yourself.</p>
+<h2 id="heading-rendering-loop">Rendering Loop</h2>
+<p>To lay the ground work for more complex rending, we’re gonna need to set up a rendering loop. This will allow us to add things like animation in due time but baby steps as they say. So lets rewrite the <code>init</code> function to do this.</p>
+<pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> <span class="hljs-title function_">init</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">getGPUDevice</span>()
+        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">setupCanvasResizing</span>()
+        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">configCanvas</span>()
+        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">loadShaders</span>()
+        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">confiureBuffers</span>()
+        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">configureBindGroup</span>()
+        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">configureRenderPassDescriptor</span>()
+        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">startAnimation</span>(<span class="hljs-number">60</span>, <span class="hljs-variable language_">this</span>)
+    }
+</code><button class="copy-code-button" aria-label="Copy code" title="Copy code" style="position: absolute; top: 8px; right: 8px; padding: 6px; background: hsl(var(--muted)); border: 1px solid hsl(var(--border)); border-radius: 6px; cursor: pointer; opacity: 0; transition: opacity 0.2s; display: flex; align-items: center; justify-content: center; color: hsl(var(--muted-foreground)); z-index: 10; --darkreader-inline-bg: hsl(oklch(24% .0095 255)); --darkreader-inline-border-short: 1px solid hsl(var(--darkreader-border--border)); --darkreader-inline-color: hsl(oklch(74% .01 255));" data-darkreader-inline-bg="" data-darkreader-inline-border-short="" data-darkreader-inline-color="">
+        <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
+        <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
+      </button></pre>
+<p>Most of the functions should look familiar from the previous article but we do now have a few new kids in the block namely, <code>configureBuffers</code>, <code>configureBindGroup</code>, and <code>startAnimation</code>. Lets check them out.</p>
+<pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-keyword">private</span> <span class="hljs-title function_">confiureBuffers</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-keyword">const</span> vertices = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Float32Array</span>([
+          <span class="hljs-comment">// X     Y</span>
+            -<span class="hljs-number">0.5</span>, -<span class="hljs-number">0.5</span>, 
+             <span class="hljs-number">0.5</span>,  <span class="hljs-number">0.5</span>, 
+            -<span class="hljs-number">0.5</span>,  <span class="hljs-number">0.5</span>,
+            -<span class="hljs-number">0.5</span>, -<span class="hljs-number">0.5</span>, 
+             <span class="hljs-number">0.5</span>, -<span class="hljs-number">0.5</span>, 
+             <span class="hljs-number">0.5</span>,  <span class="hljs-number">0.5</span>
+        ])
+        <span class="hljs-keyword">const</span> fillColor = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Float32Array</span>([<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>])
+
+        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">loadVertexBuffer</span>(vertices)
+        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">configFillColorUniform</span>()
+        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">setFillColor</span>(fillColor)
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-title function_">loadVertexBuffer</span>(<span class="hljs-params"><span class="hljs-attr">data</span>: <span class="hljs-title class_">Float32Array</span></span>) {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">vertexData</span> = data
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">vertexBuffer</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">device</span>.<span class="hljs-title function_">createBuffer</span>({
+            <span class="hljs-attr">label</span>: <span class="hljs-string">"Vertex Buffer"</span>,
+            <span class="hljs-attr">size</span>: <span class="hljs-variable language_">this</span>.<span class="hljs-property">vertexData</span>.<span class="hljs-property">byteLength</span>,
+            <span class="hljs-attr">usage</span>: <span class="hljs-title class_">GPUBufferUsage</span>.<span class="hljs-property">VERTEX</span> | <span class="hljs-title class_">GPUBufferUsage</span>.<span class="hljs-property">COPY_DST</span>
+        })
+
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">device</span>.<span class="hljs-property">queue</span>.<span class="hljs-title function_">writeBuffer</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">vertexBuffer</span>, <span class="hljs-number">0</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-property">vertexData</span>)
+    }
+
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">configFillColorUniform</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">fillColorBuffer</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">device</span>.<span class="hljs-title function_">createBuffer</span>({
+            <span class="hljs-attr">label</span>: <span class="hljs-string">"Color Fill Uniform Buffer"</span>,
+            <span class="hljs-attr">size</span>: <span class="hljs-number">4</span> * <span class="hljs-number">4</span>,
+            <span class="hljs-attr">usage</span>: <span class="hljs-title class_">GPUBufferUsage</span>.<span class="hljs-property">UNIFORM</span> | <span class="hljs-title class_">GPUBufferUsage</span>.<span class="hljs-property">COPY_DST</span>
+        })
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-title function_">setFillColor</span>(<span class="hljs-params"><span class="hljs-attr">data</span>: <span class="hljs-title class_">Float32Array</span></span>) {
+        <span class="hljs-keyword">if</span> (data.<span class="hljs-property">length</span> != <span class="hljs-number">4</span>) {
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">"Data must have 4 elements"</span>)
+        }
+
+        data.<span class="hljs-title function_">forEach</span>(<span class="hljs-function">(<span class="hljs-params">entry</span>) =&gt;</span> {
+            <span class="hljs-keyword">if</span> (entry &lt; <span class="hljs-number">0</span> || entry &gt; <span class="hljs-number">1</span>) {
+                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">"Data values must be between 0 and 1"</span>)
+            }
+        })
+
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">fillColor</span> = data
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">device</span>.<span class="hljs-property">queue</span>.<span class="hljs-title function_">writeBuffer</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">fillColorBuffer</span>, <span class="hljs-number">0</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-property">fillColor</span>)
+    }
+</code><button class="copy-code-button" aria-label="Copy code" title="Copy code" style="position: absolute; top: 8px; right: 8px; padding: 6px; background: hsl(var(--muted)); border: 1px solid hsl(var(--border)); border-radius: 6px; cursor: pointer; opacity: 0; transition: opacity 0.2s; display: flex; align-items: center; justify-content: center; color: hsl(var(--muted-foreground)); z-index: 10; --darkreader-inline-bg: hsl(oklch(24% .0095 255)); --darkreader-inline-border-short: 1px solid hsl(var(--darkreader-border--border)); --darkreader-inline-color: hsl(oklch(74% .01 255));" data-darkreader-inline-bg="" data-darkreader-inline-border-short="" data-darkreader-inline-color="">
+        <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
+        <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
+      </button></pre>
+<p>The code should look pretty straightforward. Here, we’re asking the GPU to create a Vertex Buffer and a Uniform Buffer of a known fixed size of 16 bytes (i.e 4 elements * 4 bytes/element) for the uniform buffer and 48 bytes(i.e. 12 elements * 4 bytes/element) for the vertex buffer. This is because memory allocation is not handled automatically in WebGPU and we are responsible for the allocating and freeing up of allocated memory.</p>
+<p>At the moment we’re planning on rendering a purple square hence, the all ones for the fill colour and the symmetrical vertex positions. An interesting thing you may notice is that some of the <code>(x,y)</code> are duplicated. This is because GPUs only generate fragments using triangles hence to draw a square, we need to use two triangles.</p>
+<p>Let’s move on to the <code>configureBindGroup</code> function.</p>
+<pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-keyword">private</span> <span class="hljs-title function_">configureBindGroup</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">bindGroup</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">device</span>.<span class="hljs-title function_">createBindGroup</span>({
+            <span class="hljs-attr">label</span>: <span class="hljs-string">"Bind Group"</span>,
+            <span class="hljs-attr">layout</span>: <span class="hljs-variable language_">this</span>.<span class="hljs-property">bindGroupLayout</span>,
+            <span class="hljs-attr">entries</span>: [
+                { <span class="hljs-attr">binding</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">resource</span>: { <span class="hljs-attr">buffer</span>: <span class="hljs-variable language_">this</span>.<span class="hljs-property">fillColorBuffer</span> } }
+            ]
+        })
+    }
+</code><button class="copy-code-button" aria-label="Copy code" title="Copy code" style="position: absolute; top: 8px; right: 8px; padding: 6px; background: hsl(var(--muted)); border: 1px solid hsl(var(--border)); border-radius: 6px; cursor: pointer; opacity: 0; transition: opacity 0.2s; display: flex; align-items: center; justify-content: center; color: hsl(var(--muted-foreground)); z-index: 10; --darkreader-inline-bg: hsl(oklch(24% .0095 255)); --darkreader-inline-border-short: 1px solid hsl(var(--darkreader-border--border)); --darkreader-inline-color: hsl(oklch(74% .01 255));" data-darkreader-inline-bg="" data-darkreader-inline-border-short="" data-darkreader-inline-color="">
+        <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
+        <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
+      </button></pre>
+<p>This function creates our bind group which is the glue between our uniforms in GPU land and the Buffer we’ve created in TypeScript land. As you might notice, the fillColorBuffer is mapped to a binding value of 0. This corresponds to the <code>@binding(0)</code> value in our shaders.</p>
+<p>Lastly, let’s set up our animation loop and connect all these moving parts.</p>
+<pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-keyword">private</span> <span class="hljs-title function_">startAnimation</span>(<span class="hljs-params"><span class="hljs-attr">targetFps</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">renderer</span>: <span class="hljs-title class_">Renderer</span></span>) {
+        <span class="hljs-keyword">let</span> <span class="hljs-attr">start</span>: <span class="hljs-built_in">number</span> | <span class="hljs-literal">undefined</span> = <span class="hljs-literal">undefined</span>
+        <span class="hljs-keyword">const</span> targetFrameTime = <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">round</span>(<span class="hljs-number">1000</span> / targetFps)
+        renderer.<span class="hljs-title function_">render</span>()
+        <span class="hljs-title function_">requestAnimationFrame</span>(animate)
+
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">animate</span>(<span class="hljs-params"><span class="hljs-attr">timeStep</span>: <span class="hljs-built_in">number</span></span>) {
+            <span class="hljs-keyword">if</span> (start === <span class="hljs-literal">undefined</span>) {
+                start = timeStep
+            }
+
+            <span class="hljs-keyword">const</span> elapsed = timeStep - start
+            <span class="hljs-keyword">if</span> (elapsed &gt;= targetFrameTime) {
+                start = <span class="hljs-literal">undefined</span>
+                renderer.<span class="hljs-title function_">render</span>()
+            }
+
+            <span class="hljs-title function_">requestAnimationFrame</span>(animate)
+        }
+
+    }
+
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">render</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> colorAtachments <span class="hljs-keyword">of</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">renderPassDescriptor</span>.<span class="hljs-property">colorAttachments</span>) {
+            <span class="hljs-keyword">if</span> (colorAtachments?.<span class="hljs-property">view</span>) {
+                colorAtachments.<span class="hljs-property">view</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">context</span>.<span class="hljs-title function_">getCurrentTexture</span>().<span class="hljs-title function_">createView</span>()
+            }
+        }
+
+        <span class="hljs-keyword">const</span> encoder = <span class="hljs-variable language_">this</span>.<span class="hljs-property">device</span>.<span class="hljs-title function_">createCommandEncoder</span>({ <span class="hljs-attr">label</span>: <span class="hljs-string">"render encoder"</span> })
+
+        <span class="hljs-keyword">const</span> pass = encoder.<span class="hljs-title function_">beginRenderPass</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">renderPassDescriptor</span>)
+        pass.<span class="hljs-title function_">setPipeline</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">pipeline</span>)
+        pass.<span class="hljs-title function_">setVertexBuffer</span>(<span class="hljs-number">0</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-property">vertexBuffer</span>)
+        pass.<span class="hljs-title function_">setBindGroup</span>(<span class="hljs-number">0</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-property">bindGroup</span>)
+        pass.<span class="hljs-title function_">draw</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">vertexData</span>.<span class="hljs-property">length</span> / <span class="hljs-number">2</span>)
+        pass.<span class="hljs-title function_">end</span>()
+
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">device</span>.<span class="hljs-property">queue</span>.<span class="hljs-title function_">submit</span>([encoder.<span class="hljs-title function_">finish</span>()])
+    }
+</code><button class="copy-code-button" aria-label="Copy code" title="Copy code" style="position: absolute; top: 8px; right: 8px; padding: 6px; background: hsl(var(--muted)); border: 1px solid hsl(var(--border)); border-radius: 6px; cursor: pointer; opacity: 0; transition: opacity 0.2s; display: flex; align-items: center; justify-content: center; color: hsl(var(--muted-foreground)); z-index: 10; --darkreader-inline-bg: hsl(oklch(24% .0095 255)); --darkreader-inline-border-short: 1px solid hsl(var(--darkreader-border--border)); --darkreader-inline-color: hsl(oklch(74% .01 255));" data-darkreader-inline-bg="" data-darkreader-inline-border-short="" data-darkreader-inline-color="">
+        <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
+        <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
+      </button></pre>
+<p>This now looks a bit more complex but we’re essentially using the <code>requestAnimationFrame</code> function to call the render function at our ideal target framerate. Aside from this, we’re also adding the vertex buffer and the bindGroup to our render pass. Lastly, we now call the draw function based on the number of points in the vertex buffer.</p>
+<h2 id="heading-game-engine-wrapper">Game Engine Wrapper</h2>
+<p>As you might now appreciate, there are a lot of moving parts going on in the rendering and for the potential game developer, they don’t need to care about this so let’s create a wrapper around all these things that will be visible to the developer.</p>
+<p>Create a file called <code>EngineCore.ts</code> and add the following code.</p>
+<pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Renderer</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">"./Renderer"</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">gEngine</span> {
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) { }
+
+    <span class="hljs-comment">// graphics context for drawing</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-attr">_Renderer</span>: <span class="hljs-title class_">Renderer</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> <span class="hljs-title function_">GL</span>() { <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">_Renderer</span> }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">async</span> <span class="hljs-title function_">initializeWebGPU</span>(<span class="hljs-params"><span class="hljs-attr">htmlCanvasId</span>: <span class="hljs-built_in">string</span></span>) {
+        <span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-property">style</span>.<span class="hljs-property">backgroundColor</span> = <span class="hljs-string">"black"</span>
+        <span class="hljs-keyword">const</span> canvas = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(htmlCanvasId) <span class="hljs-keyword">as</span> <span class="hljs-title class_">HTMLCanvasElement</span>
+
+        <span class="hljs-keyword">if</span> (!<span class="hljs-variable language_">this</span>.<span class="hljs-property">_Renderer</span>) {
+            <span class="hljs-variable language_">this</span>.<span class="hljs-property">_Renderer</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Renderer</span>(canvas)
+        }
+
+        <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">_Renderer</span>.<span class="hljs-title function_">init</span>()
+    }
+
+}
+</code><button class="copy-code-button" aria-label="Copy code" title="Copy code" style="position: absolute; top: 8px; right: 8px; padding: 6px; background: hsl(var(--muted)); border: 1px solid hsl(var(--border)); border-radius: 6px; cursor: pointer; opacity: 0; transition: opacity 0.2s; display: flex; align-items: center; justify-content: center; color: hsl(var(--muted-foreground)); z-index: 10; --darkreader-inline-bg: hsl(oklch(24% .0095 255)); --darkreader-inline-border-short: 1px solid hsl(var(--darkreader-border--border)); --darkreader-inline-color: hsl(oklch(74% .01 255));" data-darkreader-inline-bg="" data-darkreader-inline-border-short="" data-darkreader-inline-color="">
+        <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
+        <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
+      </button></pre>
+<p>This sets up a global static class that initializes the renderer and also exposes the renderer’s public functions.</p>
+<p>We also need to rewrite our <code>main.ts</code> file to use our new code structure.</p>
+<pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes"><span class="hljs-keyword">import</span> { main } <span class="hljs-keyword">from</span> <span class="hljs-string">"./MyGame"</span>;
+<span class="hljs-title function_">main</span>()
+</code><button class="copy-code-button" aria-label="Copy code" title="Copy code" style="position: absolute; top: 8px; right: 8px; padding: 6px; background: hsl(var(--muted)); border: 1px solid hsl(var(--border)); border-radius: 6px; cursor: pointer; opacity: 0; transition: opacity 0.2s; display: flex; align-items: center; justify-content: center; color: hsl(var(--muted-foreground)); z-index: 10; --darkreader-inline-bg: hsl(oklch(24% .0095 255)); --darkreader-inline-border-short: 1px solid hsl(var(--darkreader-border--border)); --darkreader-inline-color: hsl(oklch(74% .01 255));" data-darkreader-inline-bg="" data-darkreader-inline-border-short="" data-darkreader-inline-color="">
+        <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
+        <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
+      </button></pre>
+<p>In the <code>MyGame</code> folder in the <code>index.ts</code> the following is added</p>
+<pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes"><span class="hljs-keyword">import</span> { gEngine } <span class="hljs-keyword">from</span> <span class="hljs-string">"../EngineCore"</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">SimpleVS</span>, <span class="hljs-title class_">SimpleFS</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">"../shaders"</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">main</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-keyword">await</span> gEngine.<span class="hljs-title function_">initializeWebGPU</span>(<span class="hljs-string">"GLCanvas"</span>)
+
+    gEngine.<span class="hljs-property">GL</span>.<span class="hljs-title function_">loadShaders</span>(<span class="hljs-title class_">SimpleVS</span>, <span class="hljs-title class_">SimpleFS</span>)
+    gEngine.<span class="hljs-property">GL</span>.<span class="hljs-title function_">setFillColor</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Float32Array</span>([<span class="hljs-number">0.5</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>]))
+}
+</code><button class="copy-code-button" aria-label="Copy code" title="Copy code" style="position: absolute; top: 8px; right: 8px; padding: 6px; background: hsl(var(--muted)); border: 1px solid hsl(var(--border)); border-radius: 6px; cursor: pointer; opacity: 0; transition: opacity 0.2s; display: flex; align-items: center; justify-content: center; color: hsl(var(--muted-foreground)); z-index: 10; --darkreader-inline-bg: hsl(oklch(24% .0095 255)); --darkreader-inline-border-short: 1px solid hsl(var(--darkreader-border--border)); --darkreader-inline-color: hsl(oklch(74% .01 255));" data-darkreader-inline-bg="" data-darkreader-inline-border-short="" data-darkreader-inline-color="">
+        <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
+        <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
+      </button></pre>
+<p>As you can see, this is a much cleaner code for the developer and they need not worry about all the wizardry we had to do to get this to work. and now BEHOLD your beautiful square.</p>
+<p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1727034133643/61e39962-0221-4705-adaa-4312881fa8d4.jpeg" alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
+<p>🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔</p>
+<p>Some of you might be thinking “That ain’t a square Gift. Did you make a mistake?”. Well, not quite, the issue is that our screen is not a square and as such, although coordinates range from -1 to +1 in clip space for the horizontal and vertical axis, in actuality, the horizontal axis is longer and as such, the final output looks like a rectangle. This isn’t a big issue and can be fixed by taking the canvas resolution into account which we’ll see in a future article.</p>
+<h2 id="heading-conclusion">Conclusion</h2>
+<p>🎉🎉 Congrats for finishing the article. Although the visual might look underwhelming, we’ve learnt many powerful concepts about WebGPU such as buffers, bind groups, bindgroup layouts, the rendering loop, etc. I hope you enjoyed the process and in the next article, we’ll add more and more functionality to our engine as we continue to learn more about WebGPU and other things. 👋👋</p>
+</div></div></div></div><div class="max-w-2xl mx-auto border-t border-border pt-8 space-y-5"><div class="flex flex-wrap items-center gap-2"><a class="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 text-sm text-muted-foreground transition hover:border-primary hover:text-primary" href="/tag/webgpu">#<!-- -->webgpu</a><a class="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 text-sm text-muted-foreground transition hover:border-primary hover:text-primary" href="/tag/game-development">#<!-- -->game-development</a><a class="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 text-sm text-muted-foreground transition hover:border-primary hover:text-primary" href="/tag/typescript">#<!-- -->typescript</a><a class="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 text-sm text-muted-foreground transition hover:border-primary hover:text-primary" href="/tag/tutorial">#<!-- -->tutorial</a><a class="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 text-sm text-muted-foreground transition hover:border-primary hover:text-primary" href="/tag/beginner">#<!-- -->beginner</a></div></div></div></article></div></div></div></section>
