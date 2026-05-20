@@ -1,15 +1,183 @@
-<section class="py-8"><div class="px-4 sm:px-8"><div class="w-full max-w-full xl:mx-auto xl:max-w-[80rem] 2xl:max-w-[90rem]"><div class="grid gap-5 max-w-full"><article class="w-full max-w-full rounded-xl border bg-card text-card-foreground"><div class="px-5 pt-12 pb-8 sm:px-8"><header class="space-y-5"><div class="space-y-4 text-center max-w-4xl mx-auto"><h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight text-balance text-foreground">WebGPU Shaders: A Beginner's Step-by-Step Guide</h1><div class="flex flex-wrap items-center justify-center gap-3 text-sm text-muted-foreground"><div class="flex items-center gap-2"><span>Updated</span><time datetime="2024-12-24T09:47:10.415Z">December 24, 2024</time></div><span class="text-muted-foreground">•</span><span>13<!-- --> min read</span></div></div></header></div><div class="w-full"><img alt="WebGPU Shaders: A Beginner's Step-by-Step Guide" width="1200" height="750" decoding="async" data-nimg="1" class="w-full h-auto" style="color: transparent; --darkreader-inline-color: transparent;" srcset="/_next/image?url=https%3A%2F%2Fcdn.hashnode.com%2Fres%2Fhashnode%2Fimage%2Fupload%2Fv1734274559539%2F11634c79-04d4-4d6b-9798-082344b11dc5.jpeg&amp;w=1200&amp;q=75 1x, /_next/image?url=https%3A%2F%2Fcdn.hashnode.com%2Fres%2Fhashnode%2Fimage%2Fupload%2Fv1734274559539%2F11634c79-04d4-4d6b-9798-082344b11dc5.jpeg&amp;w=3840&amp;q=75 2x" src="/_next/image?url=https%3A%2F%2Fcdn.hashnode.com%2Fres%2Fhashnode%2Fimage%2Fupload%2Fv1734274559539%2F11634c79-04d4-4d6b-9798-082344b11dc5.jpeg&amp;w=3840&amp;q=75" data-darkreader-inline-color=""></div><div class="px-5 py-12 sm:px-8 space-y-8"><div class="max-w-2xl mx-auto"><div class="flex flex-wrap items-center gap-5"><div class="flex items-center gap-5"><div class="flex gap-3 items-start"><a target="_blank" rel="noopener" href="https://hashnode.com/@giftmugweni"><span class="relative flex shrink-0 overflow-hidden rounded-full h-10 w-10 border border-border transition-opacity hover:opacity-80"><img class="aspect-square h-full w-full" alt="Gift Mugweni" src="https://cdn.hashnode.com/res/hashnode/image/upload/v1715695145793/08835199-4bd3-4f15-9cd8-4d7d42276f2f.jpeg?auto=compress,format&amp;format=webp"></span></a><div class="min-w-0"><div class="flex items-center gap-2"><a target="_blank" rel="noopener" class="font-medium text-foreground hover:text-primary transition-colors" href="https://hashnode.com/@giftmugweni">Gift Mugweni</a><div class="flex items-center gap-1.5 text-sm"><a target="_blank" rel="noopener noreferrer nofollow ugc" class="text-muted-foreground hover:text-foreground transition-colors" aria-label="LinkedIn" href="https://www.linkedin.com/in/gift-mugweni/"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a></div></div><div class="text-sm text-muted-foreground line-clamp-2"><p>Just your chilled programmer sharing random facts I've learnt along my journey.</p>
-</div></div></div></div></div></div><div class="max-w-2xl mx-auto"><a class="group flex items-center gap-3 rounded-lg border border-border px-3 py-2 transition hover:border-primary hover:bg-accent" href="/series/graphics-journey"><i class="fa-jelly fa-layer-group h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" aria-hidden="true"></i><div class="flex flex-col"><span class="text-sm text-muted-foreground">Part of series</span><span class="text-sm font-medium text-foreground group-hover:text-primary transition-colors">Graphics Journey</span></div></a></div><div class="relative"><aside class="hidden xl:block absolute top-0 left-0 h-full"><nav class="sticky top-22 w-44"><div class="hidden xl:block group/toc relative"><div class="grid"><div class="[grid-area:1/1] opacity-0 group-hover/toc:opacity-100 transition-opacity duration-200 max-h-[calc(100vh-3rem)] overflow-y-auto"><p class="text-sm font-semibold uppercase tracking-wide text-muted-foreground mb-3">On this page</p><nav aria-label="On this page"><a class="block py-1 text-sm transition-colors hover:text-foreground text-muted-foreground" style="padding-left:0rem" href="#heading-understanding-the-basics">Understanding the basics</a><a class="block py-1 text-sm transition-colors hover:text-foreground text-muted-foreground" style="padding-left:0rem" href="#heading-basic-shader-script">Basic shader script</a><a class="block py-1 text-sm transition-colors hover:text-foreground text-muted-foreground" style="padding-left:0rem" href="#heading-explaining-the-shader-script">Explaining the shader script</a><a class="block py-1 text-sm transition-colors hover:text-foreground text-muted-foreground" style="padding-left:0rem" href="#heading-understanding-the-fragment-shader">Understanding the fragment shader</a><a class="block py-1 text-sm transition-colors hover:text-foreground text-muted-foreground" style="padding-left:0rem" href="#heading-playing-with-the-fragment-shader">Playing with the fragment shader</a><a class="block py-1 text-sm transition-colors hover:text-foreground text-muted-foreground" style="padding-left:0rem" href="#heading-first-art-piece">First art piece</a><a class="block py-1 text-sm transition-colors hover:text-foreground text-muted-foreground" style="padding-left:0rem" href="#heading-conclusion">Conclusion</a></nav></div><div class="[grid-area:1/1] relative flex flex-col gap-px transition-opacity duration-200 group-hover/toc:opacity-0 pointer-events-none self-start max-h-[calc(100vh-3rem)] overflow-hidden pl-3"><div class="absolute left-0 w-0.5 rounded-full bg-foreground transition-all duration-300 opacity-0" style="transform:translateY(0px);height:12px"></div><div class="flex items-center h-3" style="padding-left:0px"><div class="h-0.5 rounded-full transition-all duration-300 bg-border" style="width:24px"></div></div><div class="flex items-center h-3" style="padding-left:0px"><div class="h-0.5 rounded-full transition-all duration-300 bg-border" style="width:19px"></div></div><div class="flex items-center h-3" style="padding-left:0px"><div class="h-0.5 rounded-full transition-all duration-300 bg-border" style="width:28px"></div></div><div class="flex items-center h-3" style="padding-left:0px"><div class="h-0.5 rounded-full transition-all duration-300 bg-border" style="width:33px"></div></div><div class="flex items-center h-3" style="padding-left:0px"><div class="h-0.5 rounded-full transition-all duration-300 bg-border" style="width:32px"></div></div><div class="flex items-center h-3" style="padding-left:0px"><div class="h-0.5 rounded-full transition-all duration-300 bg-border" style="width:15px"></div></div><div class="flex items-center h-3" style="padding-left:0px"><div class="h-0.5 rounded-full transition-all duration-300 bg-border" style="width:10px"></div></div></div></div></div></nav></aside><div class="max-w-2xl mx-auto min-w-0 contain-[inline-size]"><div class="prose dark:prose-invert prose-pre:bg-foreground prose-pre:text-background prose-pre:border prose-pre:border-border prose-pre:rounded prose-pre:px-5 prose-pre:py-4 dark:prose-pre:bg-muted dark:prose-pre:text-foreground dark:prose-pre:border-border prose-pre:overflow-x-auto max-w-none text-base sm:text-lg [&amp;&gt;div&gt;p:first-child]:mt-0 [&amp;&gt;div&gt;p:first-child]:pt-0 min-w-0 wrap-break-word [&amp;_a]:break-all **:max-w-full"><div><p>Hello 🙋‍♂️🙋‍♂️. In my last few articles, I’ve shown how to set up your WebGPU project and how to create a basic render loop but we never did anything fun with it. So far all we’ve done is create triangles and “squares”(2 triangles) aaaannnnndddd that’s it. This, as you might expect is boring.</p>
-<p><img src="https://th.bing.com/th/id/OIP.KOoqJUAXE2nYiCMakEjsTQHaE7?w=282&amp;h=187&amp;c=7&amp;r=0&amp;o=5&amp;dpr=1.1&amp;pid=1.7" alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
-<p>Now, don’t get me wrong, you really should give respect to the triangle as its the foundation but, a solid foundation without a house on top is meaningless. So, I figured we might as well dive into the magical world of shaders and make some cool stuff.</p>
-<h2 id="heading-understanding-the-basics">Understanding the basics</h2>
-<p>For us to understand the power of shaders, we first need to keep a few things in mind. Let’s start with the vertex shader. To summarize, the vertex shader is responsible for defining where on the screen a particular result will be drawn. This is done by giving a collection of points that typically define triangles that define areas which will eventually be drawn to. A further thing to remember is that the GPU uses clip space to abstract away the actual canvas it will render to. This is done mostly because working with numbers in the -1 to +1 range allows for much greater accuracy in calculations due to how floating point numbers are implemented.</p>
-<p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1734273197544/18b6cd5f-683f-47ce-a3d4-9e0142301988.png" alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
-<p>As can be seen from the image, both the <code>x</code> and <code>y</code> axis range from <code>-1</code> to <code>+1</code> and any coordinates that are passed that are greater than or less than these values will lead to the things in that area not being drawn on the screen hence the name clip space.</p>
-<p>For this article, this is all we need to know about the vertex shader since we are mostly focusing on the fragment shader for this article since playing with colours is more fun. I’ll do another article on the vertex shader if there’s a need.</p>
-<h2 id="heading-basic-shader-script">Basic shader script</h2>
-<p>To start with, I made this basic shader</p>
-<pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    struct <span class="hljs-title class_">Props</span> {
+<section class="py-8">
+    <link rel="canonical" href="https://giftmugweni.hashnode.dev/webgpu-shaders-a-beginners-step-by-step-guide">
+    <div class="px-4 sm:px-8">
+        <div class="w-full max-w-full xl:mx-auto xl:max-w-[80rem] 2xl:max-w-[90rem]">
+            <div class="grid gap-5 max-w-full">
+                <article class="w-full max-w-full rounded-xl border bg-card text-card-foreground">
+                    <div class="px-5 pt-12 pb-8 sm:px-8">
+                        <header class="space-y-5">
+                            <div class="space-y-4 text-center max-w-4xl mx-auto">
+                                <h1
+                                    class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight text-balance text-foreground">
+                                    WebGPU Shaders: A Beginner's Step-by-Step Guide</h1>
+                                <div
+                                    class="flex flex-wrap items-center justify-center gap-3 text-sm text-muted-foreground">
+                                    <div class="flex items-center gap-2"><span>Updated</span><time
+                                            datetime="2024-12-24T09:47:10.415Z">December 24, 2024</time></div><span
+                                        class="text-muted-foreground">•</span><span>13<!-- --> min read</span>
+                                </div>
+                            </div>
+                        </header>
+                    </div>
+                    <div class="w-full"><img alt="WebGPU Shaders: A Beginner's Step-by-Step Guide" width="1200"
+                            height="750" decoding="async" data-nimg="1" class="w-full h-auto"
+                            style="color: transparent; --darkreader-inline-color: transparent;"
+                            srcset="/_next/image?url=https%3A%2F%2Fcdn.hashnode.com%2Fres%2Fhashnode%2Fimage%2Fupload%2Fv1734274559539%2F11634c79-04d4-4d6b-9798-082344b11dc5.jpeg&amp;w=1200&amp;q=75 1x, /_next/image?url=https%3A%2F%2Fcdn.hashnode.com%2Fres%2Fhashnode%2Fimage%2Fupload%2Fv1734274559539%2F11634c79-04d4-4d6b-9798-082344b11dc5.jpeg&amp;w=3840&amp;q=75 2x"
+                            src="/_next/image?url=https%3A%2F%2Fcdn.hashnode.com%2Fres%2Fhashnode%2Fimage%2Fupload%2Fv1734274559539%2F11634c79-04d4-4d6b-9798-082344b11dc5.jpeg&amp;w=3840&amp;q=75"
+                            data-darkreader-inline-color=""></div>
+                    <div class="px-5 py-12 sm:px-8 space-y-8">
+                        <div class="max-w-2xl mx-auto">
+                            <div class="flex flex-wrap items-center gap-5">
+                                <div class="flex items-center gap-5">
+                                    <div class="flex gap-3 items-start"><a target="_blank" rel="noopener"
+                                            href="https://hashnode.com/@giftmugweni"><span
+                                                class="relative flex shrink-0 overflow-hidden rounded-full h-10 w-10 border border-border transition-opacity hover:opacity-80"><img
+                                                    class="aspect-square h-full w-full" alt="Gift Mugweni"
+                                                    src="https://cdn.hashnode.com/res/hashnode/image/upload/v1715695145793/08835199-4bd3-4f15-9cd8-4d7d42276f2f.jpeg?auto=compress,format&amp;format=webp"></span></a>
+                                        <div class="min-w-0">
+                                            <div class="flex items-center gap-2"><a target="_blank" rel="noopener"
+                                                    class="font-medium text-foreground hover:text-primary transition-colors"
+                                                    href="https://hashnode.com/@giftmugweni">Gift Mugweni</a>
+                                                <div class="flex items-center gap-1.5 text-sm"><a target="_blank"
+                                                        rel="noopener noreferrer nofollow ugc"
+                                                        class="text-muted-foreground hover:text-foreground transition-colors"
+                                                        aria-label="LinkedIn"
+                                                        href="https://www.linkedin.com/in/gift-mugweni/"><i
+                                                            class="fa-brands fa-linkedin" aria-hidden="true"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="text-sm text-muted-foreground line-clamp-2">
+                                                <p>Just your chilled programmer sharing random facts I've learnt along
+                                                    my journey.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="max-w-2xl mx-auto"><a
+                                class="group flex items-center gap-3 rounded-lg border border-border px-3 py-2 transition hover:border-primary hover:bg-accent"
+                                href="/series/graphics-journey"><i
+                                    class="fa-jelly fa-layer-group h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors"
+                                    aria-hidden="true"></i>
+                                <div class="flex flex-col"><span class="text-sm text-muted-foreground">Part of
+                                        series</span><span
+                                        class="text-sm font-medium text-foreground group-hover:text-primary transition-colors">Graphics
+                                        Journey</span></div>
+                            </a></div>
+                        <div class="relative">
+                            <aside class="hidden xl:block absolute top-0 left-0 h-full">
+                                <nav class="sticky top-22 w-44">
+                                    <div class="hidden xl:block group/toc relative">
+                                        <div class="grid">
+                                            <div
+                                                class="[grid-area:1/1] opacity-0 group-hover/toc:opacity-100 transition-opacity duration-200 max-h-[calc(100vh-3rem)] overflow-y-auto">
+                                                <p
+                                                    class="text-sm font-semibold uppercase tracking-wide text-muted-foreground mb-3">
+                                                    On this page</p>
+                                                <nav aria-label="On this page"><a
+                                                        class="block py-1 text-sm transition-colors hover:text-foreground text-muted-foreground"
+                                                        style="padding-left:0rem"
+                                                        href="#heading-understanding-the-basics">Understanding the
+                                                        basics</a><a
+                                                        class="block py-1 text-sm transition-colors hover:text-foreground text-muted-foreground"
+                                                        style="padding-left:0rem"
+                                                        href="#heading-basic-shader-script">Basic shader script</a><a
+                                                        class="block py-1 text-sm transition-colors hover:text-foreground text-muted-foreground"
+                                                        style="padding-left:0rem"
+                                                        href="#heading-explaining-the-shader-script">Explaining the
+                                                        shader script</a><a
+                                                        class="block py-1 text-sm transition-colors hover:text-foreground text-muted-foreground"
+                                                        style="padding-left:0rem"
+                                                        href="#heading-understanding-the-fragment-shader">Understanding
+                                                        the fragment shader</a><a
+                                                        class="block py-1 text-sm transition-colors hover:text-foreground text-muted-foreground"
+                                                        style="padding-left:0rem"
+                                                        href="#heading-playing-with-the-fragment-shader">Playing with
+                                                        the fragment shader</a><a
+                                                        class="block py-1 text-sm transition-colors hover:text-foreground text-muted-foreground"
+                                                        style="padding-left:0rem" href="#heading-first-art-piece">First
+                                                        art piece</a><a
+                                                        class="block py-1 text-sm transition-colors hover:text-foreground text-muted-foreground"
+                                                        style="padding-left:0rem"
+                                                        href="#heading-conclusion">Conclusion</a></nav>
+                                            </div>
+                                            <div
+                                                class="[grid-area:1/1] relative flex flex-col gap-px transition-opacity duration-200 group-hover/toc:opacity-0 pointer-events-none self-start max-h-[calc(100vh-3rem)] overflow-hidden pl-3">
+                                                <div class="absolute left-0 w-0.5 rounded-full bg-foreground transition-all duration-300 opacity-0"
+                                                    style="transform:translateY(0px);height:12px"></div>
+                                                <div class="flex items-center h-3" style="padding-left:0px">
+                                                    <div class="h-0.5 rounded-full transition-all duration-300 bg-border"
+                                                        style="width:24px"></div>
+                                                </div>
+                                                <div class="flex items-center h-3" style="padding-left:0px">
+                                                    <div class="h-0.5 rounded-full transition-all duration-300 bg-border"
+                                                        style="width:19px"></div>
+                                                </div>
+                                                <div class="flex items-center h-3" style="padding-left:0px">
+                                                    <div class="h-0.5 rounded-full transition-all duration-300 bg-border"
+                                                        style="width:28px"></div>
+                                                </div>
+                                                <div class="flex items-center h-3" style="padding-left:0px">
+                                                    <div class="h-0.5 rounded-full transition-all duration-300 bg-border"
+                                                        style="width:33px"></div>
+                                                </div>
+                                                <div class="flex items-center h-3" style="padding-left:0px">
+                                                    <div class="h-0.5 rounded-full transition-all duration-300 bg-border"
+                                                        style="width:32px"></div>
+                                                </div>
+                                                <div class="flex items-center h-3" style="padding-left:0px">
+                                                    <div class="h-0.5 rounded-full transition-all duration-300 bg-border"
+                                                        style="width:15px"></div>
+                                                </div>
+                                                <div class="flex items-center h-3" style="padding-left:0px">
+                                                    <div class="h-0.5 rounded-full transition-all duration-300 bg-border"
+                                                        style="width:10px"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </nav>
+                            </aside>
+                            <div class="max-w-2xl mx-auto min-w-0 contain-[inline-size]">
+                                <div
+                                    class="prose dark:prose-invert prose-pre:bg-foreground prose-pre:text-background prose-pre:border prose-pre:border-border prose-pre:rounded prose-pre:px-5 prose-pre:py-4 dark:prose-pre:bg-muted dark:prose-pre:text-foreground dark:prose-pre:border-border prose-pre:overflow-x-auto max-w-none text-base sm:text-lg [&amp;&gt;div&gt;p:first-child]:mt-0 [&amp;&gt;div&gt;p:first-child]:pt-0 min-w-0 wrap-break-word [&amp;_a]:break-all **:max-w-full">
+                                    <div>
+                                        <p>Hello 🙋‍♂️🙋‍♂️. In my last few articles, I’ve shown how to set up your
+                                            WebGPU project and how to create a basic render loop but we never did
+                                            anything fun with it. So far all we’ve done is create triangles and
+                                            “squares”(2 triangles) aaaannnnndddd that’s it. This, as you might expect is
+                                            boring.</p>
+                                        <p><img src="https://th.bing.com/th/id/OIP.KOoqJUAXE2nYiCMakEjsTQHaE7?w=282&amp;h=187&amp;c=7&amp;r=0&amp;o=5&amp;dpr=1.1&amp;pid=1.7"
+                                                alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
+                                        <p>Now, don’t get me wrong, you really should give respect to the triangle as
+                                            its the foundation but, a solid foundation without a house on top is
+                                            meaningless. So, I figured we might as well dive into the magical world of
+                                            shaders and make some cool stuff.</p>
+                                        <h2 id="heading-understanding-the-basics">Understanding the basics</h2>
+                                        <p>For us to understand the power of shaders, we first need to keep a few things
+                                            in mind. Let’s start with the vertex shader. To summarize, the vertex shader
+                                            is responsible for defining where on the screen a particular result will be
+                                            drawn. This is done by giving a collection of points that typically define
+                                            triangles that define areas which will eventually be drawn to. A further
+                                            thing to remember is that the GPU uses clip space to abstract away the
+                                            actual canvas it will render to. This is done mostly because working with
+                                            numbers in the -1 to +1 range allows for much greater accuracy in
+                                            calculations due to how floating point numbers are implemented.</p>
+                                        <p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1734273197544/18b6cd5f-683f-47ce-a3d4-9e0142301988.png"
+                                                alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
+                                        <p>As can be seen from the image, both the <code>x</code> and <code>y</code>
+                                            axis range from <code>-1</code> to <code>+1</code> and any coordinates that
+                                            are passed that are greater than or less than these values will lead to the
+                                            things in that area not being drawn on the screen hence the name clip space.
+                                        </p>
+                                        <p>For this article, this is all we need to know about the vertex shader since
+                                            we are mostly focusing on the fragment shader for this article since playing
+                                            with colours is more fun. I’ll do another article on the vertex shader if
+                                            there’s a need.</p>
+                                        <h2 id="heading-basic-shader-script">Basic shader script</h2>
+                                        <p>To start with, I made this basic shader</p>
+                                        <pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    struct <span class="hljs-title class_">Props</span> {
         <span class="hljs-attr">width</span>: f32, <span class="hljs-comment">// the width of the canvas</span>
         <span class="hljs-attr">height</span>: f32, <span class="hljs-comment">// the canvas of the screen</span>
         <span class="hljs-attr">time</span>: f32, <span class="hljs-comment">// the number of seconds since the program started</span>
@@ -36,15 +204,44 @@
         <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
         <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
       </button></pre>
-<p>If you’ve read my previous articles, this code should look familiar. It draws a red triangle onto the screen.</p>
-<p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1734188490984/64a6417a-e4b3-4e3e-858f-474bf0d867d0.jpeg" alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
-<p>I won’t cover the plumbing for getting the shader code to run but I’ve linked the code to the project <a target="_blank" href="https://github.com/Stelele/article-11-code" rel="noopener noreferrer nofollow ugc">here</a>. If you want to know how that works you can check out my previous articles. This is mainly because its not that different from the rendering loop setup with the execption of getting the data into the props uniform plus I think it’d be a great learning opportunity.</p>
-<h2 id="heading-explaining-the-shader-script">Explaining the shader script</h2>
-<p>You can find an accessible in-depth explanation of the WGSL syntax <a target="_blank" href="https://webgpufundamentals.org/webgpu/lessons/webgpu-wgsl.html" rel="noopener noreferrer nofollow ugc">here</a>.</p>
-<p>At the start of the script, you see I create something called a <code>struct</code>. This can be thought of as how we define the properties of a class which is called <code>Props</code>. This class definition is then used to explain the structure of the <code>props</code> variable which you’ll see in the subsequent line. An important thing to note is that WGSL, the WebGPU shader language, is a statically typed language. Aside from this, it also cares about the exact size of the type hence in this case <code>f32</code> means that it is a 32-bit floating point number.</p>
-<p>Another thing you’ll notice is the <code>array</code>, <code>vec2f</code> and <code>vec4f</code> datatypes. The <code>array</code> datatype should be obvious but you can understand the other 2 as defining a 2 and 4 dimensional 32 bit floating point vector respectively. Conceptually, you can think of a vector as an array with a fixed number of elements. So <code>vec2f</code> is a 2-element array and <code>vec4f</code> is a 4-element array.</p>
-<p>Moving on, you’ll notice the vertex buffer defines the three points of the triangle which should make sense if you look at the clip space reference image. As I mentioned earlier, we aren’t really concerned about this function but I would like to draw things to the whole screen instead of just the tiny triangle as its more interesting so we can modify the vertex shader to look like below.</p>
-<pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes"><span class="hljs-meta">@vertex</span>
+                                        <p>If you’ve read my previous articles, this code should look familiar. It draws
+                                            a red triangle onto the screen.</p>
+                                        <p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1734188490984/64a6417a-e4b3-4e3e-858f-474bf0d867d0.jpeg"
+                                                alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
+                                        <p>I won’t cover the plumbing for getting the shader code to run but I’ve linked
+                                            the code to the project <a target="_blank"
+                                                href="https://github.com/Stelele/article-11-code"
+                                                rel="noopener noreferrer nofollow ugc">here</a>. If you want to know how
+                                            that works you can check out my previous articles. This is mainly because
+                                            its not that different from the rendering loop setup with the execption of
+                                            getting the data into the props uniform plus I think it’d be a great
+                                            learning opportunity.</p>
+                                        <h2 id="heading-explaining-the-shader-script">Explaining the shader script</h2>
+                                        <p>You can find an accessible in-depth explanation of the WGSL syntax <a
+                                                target="_blank"
+                                                href="https://webgpufundamentals.org/webgpu/lessons/webgpu-wgsl.html"
+                                                rel="noopener noreferrer nofollow ugc">here</a>.</p>
+                                        <p>At the start of the script, you see I create something called a
+                                            <code>struct</code>. This can be thought of as how we define the properties
+                                            of a class which is called <code>Props</code>. This class definition is then
+                                            used to explain the structure of the <code>props</code> variable which
+                                            you’ll see in the subsequent line. An important thing to note is that WGSL,
+                                            the WebGPU shader language, is a statically typed language. Aside from this,
+                                            it also cares about the exact size of the type hence in this case
+                                            <code>f32</code> means that it is a 32-bit floating point number.</p>
+                                        <p>Another thing you’ll notice is the <code>array</code>, <code>vec2f</code> and
+                                            <code>vec4f</code> datatypes. The <code>array</code> datatype should be
+                                            obvious but you can understand the other 2 as defining a 2 and 4 dimensional
+                                            32 bit floating point vector respectively. Conceptually, you can think of a
+                                            vector as an array with a fixed number of elements. So <code>vec2f</code> is
+                                            a 2-element array and <code>vec4f</code> is a 4-element array.</p>
+                                        <p>Moving on, you’ll notice the vertex buffer defines the three points of the
+                                            triangle which should make sense if you look at the clip space reference
+                                            image. As I mentioned earlier, we aren’t really concerned about this
+                                            function but I would like to draw things to the whole screen instead of just
+                                            the tiny triangle as its more interesting so we can modify the vertex shader
+                                            to look like below.</p>
+                                        <pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes"><span class="hljs-meta">@vertex</span>
     fn <span class="hljs-title function_">vs</span>(<span class="hljs-meta">@builtin</span>(vertex_index) <span class="hljs-attr">idx</span>: u32) -&gt; <span class="hljs-meta">@builtin</span>(position) vec4f {
         <span class="hljs-keyword">var</span> <span class="hljs-attr">pos</span>: array&lt;vec2f, <span class="hljs-number">3</span>&gt; = <span class="hljs-title function_">array</span>(
             <span class="hljs-title function_">vec2f</span>(-<span class="hljs-number">1</span>, <span class="hljs-number">3</span>),
@@ -58,14 +255,26 @@
         <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
         <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
       </button></pre>
-<p>This is a hack I learnt from <a target="_blank" href="https://webgpufundamentals.org/webgpu/lessons/webgpu-large-triangle-to-cover-clip-space.html" rel="noopener noreferrer nofollow ugc">this article</a> that defines the triangle shown below. As can be seen from the image, this triangle perfectly covers the -1 to 1 range and we don’t need to worry about the extra areas since they get clipped out anyway. This isn’t a particularly important thing but I like it because it allows me to only define 3 points instead of 6 points if I want to define a rectangle that covers the whole screen.</p>
-<p><img src="https://webgpufundamentals.org/webgpu/lessons/resources/quad-triangle.svg" alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
-<p>At this moment, your screen should now look like this.</p>
-<p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1734191371984/6e9bbb88-4bbc-4874-87e9-1c7208d27805.jpeg" alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
-<p>As expected, we’ve now covered the whole screen and can start messing around with the colors.</p>
-<h2 id="heading-understanding-the-fragment-shader">Understanding the fragment shader</h2>
-<p>With that out the way, let’s move on to the star of the show. As you’ll recall, our fragment shader looks like this.</p>
-<pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-meta">@fragment</span>
+                                        <p>This is a hack I learnt from <a target="_blank"
+                                                href="https://webgpufundamentals.org/webgpu/lessons/webgpu-large-triangle-to-cover-clip-space.html"
+                                                rel="noopener noreferrer nofollow ugc">this article</a> that defines the
+                                            triangle shown below. As can be seen from the image, this triangle perfectly
+                                            covers the -1 to 1 range and we don’t need to worry about the extra areas
+                                            since they get clipped out anyway. This isn’t a particularly important thing
+                                            but I like it because it allows me to only define 3 points instead of 6
+                                            points if I want to define a rectangle that covers the whole screen.</p>
+                                        <p><img src="https://webgpufundamentals.org/webgpu/lessons/resources/quad-triangle.svg"
+                                                alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
+                                        <p>At this moment, your screen should now look like this.</p>
+                                        <p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1734191371984/6e9bbb88-4bbc-4874-87e9-1c7208d27805.jpeg"
+                                                alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
+                                        <p>As expected, we’ve now covered the whole screen and can start messing around
+                                            with the colors.</p>
+                                        <h2 id="heading-understanding-the-fragment-shader">Understanding the fragment
+                                            shader</h2>
+                                        <p>With that out the way, let’s move on to the star of the show. As you’ll
+                                            recall, our fragment shader looks like this.</p>
+                                        <pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-meta">@fragment</span>
     fn <span class="hljs-title function_">fs</span>(<span class="hljs-meta">@builtin</span>(position) <span class="hljs-attr">pos</span>: vec4f) -&gt; <span class="hljs-meta">@location</span>(<span class="hljs-number">0</span>) vec4f {
         <span class="hljs-keyword">return</span> <span class="hljs-title function_">vec4f</span>(<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>);
     }
@@ -73,9 +282,22 @@
         <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
         <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
       </button></pre>
-<p>To understand what’s going on here, remember that all the fragment shader cares about is assigning a colour to the given pixel on the screen. So, if we want to have different colours at different areas of the screen, we need to know what pixel we are drawing to in principle. This is why we have the <code>pos</code> variable as an argument to the function which is a variable provided by WGSL.</p>
-<p>One thing we need to know is that the <code>x</code> and <code>y</code> values of the <code>pos</code> vector, range from <code>0</code> to <code>canvas width</code> and <code>0</code> to <code>canvas height</code> respectively. This is a problem as the colour output range is from <code>0</code> to <code>1</code>. This means that if we just pass the coordinates directly then it would clip everything to <code>1</code> which is not ideal. To fix this, we divide the <code>x</code> and <code>y</code> values by the canvas width and height respectively as shown in the below code.</p>
-<pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-meta">@fragment</span>
+                                        <p>To understand what’s going on here, remember that all the fragment shader
+                                            cares about is assigning a colour to the given pixel on the screen. So, if
+                                            we want to have different colours at different areas of the screen, we need
+                                            to know what pixel we are drawing to in principle. This is why we have the
+                                            <code>pos</code> variable as an argument to the function which is a variable
+                                            provided by WGSL.</p>
+                                        <p>One thing we need to know is that the <code>x</code> and <code>y</code>
+                                            values of the <code>pos</code> vector, range from <code>0</code> to
+                                            <code>canvas width</code> and <code>0</code> to <code>canvas height</code>
+                                            respectively. This is a problem as the colour output range is from
+                                            <code>0</code> to <code>1</code>. This means that if we just pass the
+                                            coordinates directly then it would clip everything to <code>1</code> which
+                                            is not ideal. To fix this, we divide the <code>x</code> and <code>y</code>
+                                            values by the canvas width and height respectively as shown in the below
+                                            code.</p>
+                                        <pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-meta">@fragment</span>
     fn <span class="hljs-title function_">fs</span>(<span class="hljs-meta">@builtin</span>(position) <span class="hljs-attr">pos</span>: vec4f) -&gt; <span class="hljs-meta">@location</span>(<span class="hljs-number">0</span>) vec4f {
         <span class="hljs-keyword">var</span> uv = pos.<span class="hljs-property">xy</span> / <span class="hljs-title function_">vec2f</span>(props.<span class="hljs-property">width</span>, props.<span class="hljs-property">height</span>);
         <span class="hljs-keyword">return</span> <span class="hljs-title function_">vec4f</span>(uv.<span class="hljs-property">x</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>);
@@ -84,11 +306,22 @@
         <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
         <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
       </button></pre>
-<p>You’ll notice I’ve introduced this funny notation here <code>pos.xy</code>. This is called swizzling and it’s a shorthand for <code>vec2f(pos.x,pos.y)</code>. It’s very versatile and you can use it to quickly construct vectors like <code>pos.zyxx</code>, <code>pos.xyx</code>, and <code>pos.xyz</code>. Another thing you’ll notice is that you can implicitly carry out element-wise operations, in this case, division, between two vectors of the same size.</p>
-<p>Moving on, after running this code, you’ll get the following result.</p>
-<p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1734198662034/c7de0717-d304-4f4e-aa18-39440a7f2b51.jpeg" alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
-<p>An interesting thing you’ll notice is that we now have a colour gradient going from black on the left to bright red on the right. This matches with our expected result of the <code>x</code> range going from <code>0</code> to <code>1</code> . Similarly, we can also inspect our y value by modifying the code like so.</p>
-<pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-meta">@fragment</span>
+                                        <p>You’ll notice I’ve introduced this funny notation here <code>pos.xy</code>.
+                                            This is called swizzling and it’s a shorthand for
+                                            <code>vec2f(pos.x,pos.y)</code>. It’s very versatile and you can use it to
+                                            quickly construct vectors like <code>pos.zyxx</code>, <code>pos.xyx</code>,
+                                            and <code>pos.xyz</code>. Another thing you’ll notice is that you can
+                                            implicitly carry out element-wise operations, in this case, division,
+                                            between two vectors of the same size.</p>
+                                        <p>Moving on, after running this code, you’ll get the following result.</p>
+                                        <p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1734198662034/c7de0717-d304-4f4e-aa18-39440a7f2b51.jpeg"
+                                                alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
+                                        <p>An interesting thing you’ll notice is that we now have a colour gradient
+                                            going from black on the left to bright red on the right. This matches with
+                                            our expected result of the <code>x</code> range going from <code>0</code> to
+                                            <code>1</code> . Similarly, we can also inspect our y value by modifying the
+                                            code like so.</p>
+                                        <pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-meta">@fragment</span>
     fn <span class="hljs-title function_">fs</span>(<span class="hljs-meta">@builtin</span>(position) <span class="hljs-attr">pos</span>: vec4f) -&gt; <span class="hljs-meta">@location</span>(<span class="hljs-number">0</span>) vec4f {
         <span class="hljs-keyword">var</span> uv = pos.<span class="hljs-property">xy</span> / <span class="hljs-title function_">vec2f</span>(props.<span class="hljs-property">width</span>, props.<span class="hljs-property">height</span>);
         <span class="hljs-keyword">return</span> <span class="hljs-title function_">vec4f</span>(uv.<span class="hljs-property">y</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>);
@@ -97,13 +330,21 @@
         <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
         <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
       </button></pre>
-<p>This gives us the following result.</p>
-<p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1734198686052/9c667a4c-e7d9-482c-a6b9-f5810f078999.jpeg" alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
-<p>You’ll notice now that the gradient starts at black at the top and goes to red at the bottom.</p>
-<p>Taking these two observations into account we can conclude that our current coordinate space in terms of the <code>uv</code> variable is as shown in the image below.</p>
-<p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1734198715999/09c9be05-9098-41c9-ad84-c6c25cc7dd9c.png" alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
-<p>We can also visualise this coordinate space by making use of both the red and green channels by making the following modifications which use the <code>red</code> channel for <code>x</code> and the <code>green</code> channel for the <code>y</code>.</p>
-<pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-meta">@fragment</span>
+                                        <p>This gives us the following result.</p>
+                                        <p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1734198686052/9c667a4c-e7d9-482c-a6b9-f5810f078999.jpeg"
+                                                alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
+                                        <p>You’ll notice now that the gradient starts at black at the top and goes to
+                                            red at the bottom.</p>
+                                        <p>Taking these two observations into account we can conclude that our current
+                                            coordinate space in terms of the <code>uv</code> variable is as shown in the
+                                            image below.</p>
+                                        <p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1734198715999/09c9be05-9098-41c9-ad84-c6c25cc7dd9c.png"
+                                                alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
+                                        <p>We can also visualise this coordinate space by making use of both the red and
+                                            green channels by making the following modifications which use the
+                                            <code>red</code> channel for <code>x</code> and the <code>green</code>
+                                            channel for the <code>y</code>.</p>
+                                        <pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-meta">@fragment</span>
     fn <span class="hljs-title function_">fs</span>(<span class="hljs-meta">@builtin</span>(position) <span class="hljs-attr">pos</span>: vec4f) -&gt; <span class="hljs-meta">@location</span>(<span class="hljs-number">0</span>) vec4f {
         <span class="hljs-keyword">var</span> uv = pos.<span class="hljs-property">xy</span> / <span class="hljs-title function_">vec2f</span>(props.<span class="hljs-property">width</span>, props.<span class="hljs-property">height</span>);
         <span class="hljs-keyword">return</span> <span class="hljs-title function_">vec4f</span>(uv, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>);
@@ -112,19 +353,48 @@
         <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
         <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
       </button></pre>
-<p>This now gives us this result.</p>
-<p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1734259939541/06fe543a-5e7c-4c39-a283-e9bedd4bab1d.jpeg" alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
-<p>As you’d expect, the top left is black corresponding to coordinate <code>(0,0)</code>, the bottom right is yellow corresponding to <code>(1,1)</code> with the colours becoming increasingly red as you move right and increasingly green as you move down.</p>
-<p>You might now notice that when it comes to the fragment shader, there’s no difference between colours and spatial coordinates. This is a very important thing to remember as it’s the core principle underlying all the crazy things we can make with the fragment shader as you’ll see.</p>
-<p>If you want to learn more about this, I recommend you checkout the <a target="_blank" href="https://thebookofshaders.com/" rel="noopener noreferrer nofollow ugc">Book of Shaders website</a>. It unfortunately uses WebGL instead of WebGPU but the shading languages aren’t too different from each other and the lessons it imparts on you are invaluable.</p>
-<p>Now that we’ve got a basic understanding of the fragment shader, let’s have some fun! 🥳🥳</p>
-<h2 id="heading-playing-with-the-fragment-shader">Playing with the fragment shader</h2>
-<p>So the first thing I want to do is convert my <code>uv</code> coordinates which range from <code>0</code> to <code>1</code> to clip space coordinates which range from <code>-1</code> to <code>+1</code>. This is not a fundamentally necessary step but the examples I have make use of a lot of symmetry so it makes sense to make the centre of the screen <code>(0,0)</code> instead of <code>(0.5,0.5)</code> like it is at the moment.</p>
-<p>To show you how you can achieve this, lets look at our individual axises.</p>
-<p>For the x-axis, we know it ranges from <code>0</code> to <code>1</code> from <code>left</code> to <code>right</code>. This means if we double our range and subtract it by <code>1</code> we’ll get numbers that range from <code>-1</code> to <code>+1</code> from <code>left</code> to <code>right</code>.</p>
-<p>For the y-axis, we know it ranges from <code>0</code> to <code>1</code> from <code>top</code> to <code>bottom</code>. This means if we negate the numbers, double the values and add <code>1</code> we’ll get numbers that range from <code>-1</code> to <code>+1</code> from <code>bottom</code> to <code>top</code>.</p>
-<p>With this in mind, we make the following modifications to our fragment shader.</p>
-<pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-meta">@fragment</span>
+                                        <p>This now gives us this result.</p>
+                                        <p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1734259939541/06fe543a-5e7c-4c39-a283-e9bedd4bab1d.jpeg"
+                                                alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
+                                        <p>As you’d expect, the top left is black corresponding to coordinate
+                                            <code>(0,0)</code>, the bottom right is yellow corresponding to
+                                            <code>(1,1)</code> with the colours becoming increasingly red as you move
+                                            right and increasingly green as you move down.</p>
+                                        <p>You might now notice that when it comes to the fragment shader, there’s no
+                                            difference between colours and spatial coordinates. This is a very important
+                                            thing to remember as it’s the core principle underlying all the crazy things
+                                            we can make with the fragment shader as you’ll see.</p>
+                                        <p>If you want to learn more about this, I recommend you checkout the <a
+                                                target="_blank" href="https://thebookofshaders.com/"
+                                                rel="noopener noreferrer nofollow ugc">Book of Shaders website</a>. It
+                                            unfortunately uses WebGL instead of WebGPU but the shading languages aren’t
+                                            too different from each other and the lessons it imparts on you are
+                                            invaluable.</p>
+                                        <p>Now that we’ve got a basic understanding of the fragment shader, let’s have
+                                            some fun! 🥳🥳</p>
+                                        <h2 id="heading-playing-with-the-fragment-shader">Playing with the fragment
+                                            shader</h2>
+                                        <p>So the first thing I want to do is convert my <code>uv</code> coordinates
+                                            which range from <code>0</code> to <code>1</code> to clip space coordinates
+                                            which range from <code>-1</code> to <code>+1</code>. This is not a
+                                            fundamentally necessary step but the examples I have make use of a lot of
+                                            symmetry so it makes sense to make the centre of the screen
+                                            <code>(0,0)</code> instead of <code>(0.5,0.5)</code> like it is at the
+                                            moment.</p>
+                                        <p>To show you how you can achieve this, lets look at our individual axises.</p>
+                                        <p>For the x-axis, we know it ranges from <code>0</code> to <code>1</code> from
+                                            <code>left</code> to <code>right</code>. This means if we double our range
+                                            and subtract it by <code>1</code> we’ll get numbers that range from
+                                            <code>-1</code> to <code>+1</code> from <code>left</code> to
+                                            <code>right</code>.</p>
+                                        <p>For the y-axis, we know it ranges from <code>0</code> to <code>1</code> from
+                                            <code>top</code> to <code>bottom</code>. This means if we negate the
+                                            numbers, double the values and add <code>1</code> we’ll get numbers that
+                                            range from <code>-1</code> to <code>+1</code> from <code>bottom</code> to
+                                            <code>top</code>.</p>
+                                        <p>With this in mind, we make the following modifications to our fragment
+                                            shader.</p>
+                                        <pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-meta">@fragment</span>
     fn <span class="hljs-title function_">fs</span>(<span class="hljs-meta">@builtin</span>(position) <span class="hljs-attr">pos</span>: vec4f) -&gt; <span class="hljs-meta">@location</span>(<span class="hljs-number">0</span>) vec4f {
         <span class="hljs-keyword">var</span> uv = pos.<span class="hljs-property">xy</span> / <span class="hljs-title function_">vec2f</span>(props.<span class="hljs-property">width</span>, props.<span class="hljs-property">height</span>);
         uv.<span class="hljs-property">x</span> = <span class="hljs-number">2</span> * uv.<span class="hljs-property">x</span> - <span class="hljs-number">1</span>;
@@ -136,11 +406,15 @@
         <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
         <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
       </button></pre>
-<p>This would give us the following result</p>
-<p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1734259988302/4db59271-6eab-42c2-ae63-a00c97079186.jpeg" alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
-<p>You’ll notice that the top right corner is the expected yellow color and the entire bottom left quadrant is black since all the numbers in that region are negative.</p>
-<p>We could also have compacted the clip space transformation into one line if we had used the element-wise operations, as shown below.</p>
-<pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-meta">@fragment</span>
+                                        <p>This would give us the following result</p>
+                                        <p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1734259988302/4db59271-6eab-42c2-ae63-a00c97079186.jpeg"
+                                                alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
+                                        <p>You’ll notice that the top right corner is the expected yellow color and the
+                                            entire bottom left quadrant is black since all the numbers in that region
+                                            are negative.</p>
+                                        <p>We could also have compacted the clip space transformation into one line if
+                                            we had used the element-wise operations, as shown below.</p>
+                                        <pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-meta">@fragment</span>
     fn <span class="hljs-title function_">fs</span>(<span class="hljs-meta">@builtin</span>(position) <span class="hljs-attr">pos</span>: vec4f) -&gt; <span class="hljs-meta">@location</span>(<span class="hljs-number">0</span>) vec4f {
         <span class="hljs-keyword">var</span> uv = pos.<span class="hljs-property">xy</span> / <span class="hljs-title function_">vec2f</span>(props.<span class="hljs-property">width</span>, props.<span class="hljs-property">height</span>);
         uv = <span class="hljs-number">2</span> * <span class="hljs-title function_">vec2f</span>(uv.<span class="hljs-property">x</span>, -uv.<span class="hljs-property">y</span>) + <span class="hljs-title function_">vec2f</span>(-<span class="hljs-number">1</span>, <span class="hljs-number">1</span>);
@@ -151,11 +425,17 @@
         <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
         <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
       </button></pre>
-<p>Before continuing, let's take a moment to appreciate everything we’ve learnt. While I won’t claim that this is all you need to know, I strongly believe that with this basis, you can now understand why certain shader tricks work so well and the following examples prove it.</p>
-<h2 id="heading-first-art-piece">First art piece</h2>
-<p>Our first art piece is a replica of <a target="_blank" href="https://www.youtube.com/watch?v=f4s1h2YETNY&amp;t=31s&amp;pp=ygUKc2hhZGVyIGFydA%3D%3D" rel="noopener noreferrer nofollow ugc">this art piece</a>.</p>
-<p>Let us look at our first WGSL function <code>distance</code> which can give you the distance between two points.</p>
-<pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-meta">@fragment</span>
+                                        <p>Before continuing, let's take a moment to appreciate everything we’ve learnt.
+                                            While I won’t claim that this is all you need to know, I strongly believe
+                                            that with this basis, you can now understand why certain shader tricks work
+                                            so well and the following examples prove it.</p>
+                                        <h2 id="heading-first-art-piece">First art piece</h2>
+                                        <p>Our first art piece is a replica of <a target="_blank"
+                                                href="https://www.youtube.com/watch?v=f4s1h2YETNY&amp;t=31s&amp;pp=ygUKc2hhZGVyIGFydA%3D%3D"
+                                                rel="noopener noreferrer nofollow ugc">this art piece</a>.</p>
+                                        <p>Let us look at our first WGSL function <code>distance</code> which can give
+                                            you the distance between two points.</p>
+                                        <pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-meta">@fragment</span>
     fn <span class="hljs-title function_">fs</span>(<span class="hljs-meta">@builtin</span>(position) <span class="hljs-attr">pos</span>: vec4f) -&gt; <span class="hljs-meta">@location</span>(<span class="hljs-number">0</span>) vec4f {
         <span class="hljs-keyword">var</span> uv = pos.<span class="hljs-property">xy</span> / <span class="hljs-title function_">vec2f</span>(props.<span class="hljs-property">width</span>, props.<span class="hljs-property">height</span>);
         uv = <span class="hljs-number">2</span> * <span class="hljs-title function_">vec2f</span>(uv.<span class="hljs-property">x</span>, -uv.<span class="hljs-property">y</span>) + <span class="hljs-title function_">vec2f</span>(-<span class="hljs-number">1</span>, <span class="hljs-number">1</span>);
@@ -168,10 +448,17 @@
         <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
         <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
       </button></pre>
-<p>having obtained the distance <code>d</code> we plugged it into all the color channels which will give us a nice grayscale output.</p>
-<p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1734261957442/83eafa70-410f-44d5-9b00-b780abffc45c.jpeg" alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
-<p>So as we might expect, the distance starts at zero and progressively becomes white as we radiate out. You might notice something funny though. If you look closely, you’ll notice the black region is more elliptical than circular and this is because of the aspect ratio of the screen size. To fix this, you need to multiply the uv x coordinates by the screen resolution.</p>
-<pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-meta">@fragment</span>
+                                        <p>having obtained the distance <code>d</code> we plugged it into all the color
+                                            channels which will give us a nice grayscale output.</p>
+                                        <p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1734261957442/83eafa70-410f-44d5-9b00-b780abffc45c.jpeg"
+                                                alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
+                                        <p>So as we might expect, the distance starts at zero and progressively becomes
+                                            white as we radiate out. You might notice something funny though. If you
+                                            look closely, you’ll notice the black region is more elliptical than
+                                            circular and this is because of the aspect ratio of the screen size. To fix
+                                            this, you need to multiply the uv x coordinates by the screen resolution.
+                                        </p>
+                                        <pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-meta">@fragment</span>
     fn <span class="hljs-title function_">fs</span>(<span class="hljs-meta">@builtin</span>(position) <span class="hljs-attr">pos</span>: vec4f) -&gt; <span class="hljs-meta">@location</span>(<span class="hljs-number">0</span>) vec4f {
         <span class="hljs-keyword">var</span> uv = pos.<span class="hljs-property">xy</span> / <span class="hljs-title function_">vec2f</span>(props.<span class="hljs-property">width</span>, props.<span class="hljs-property">height</span>);
         uv = <span class="hljs-number">2</span> * <span class="hljs-title function_">vec2f</span>(uv.<span class="hljs-property">x</span>, -uv.<span class="hljs-property">y</span>) + <span class="hljs-title function_">vec2f</span>(-<span class="hljs-number">1</span>, <span class="hljs-number">1</span>);
@@ -185,10 +472,14 @@
         <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
         <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
       </button></pre>
-<p>And now we get the correct circular output</p>
-<p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1734262283717/e6a3c768-154a-4dd5-9176-054aaecab744.jpeg" alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
-<p>If we want a perfect circle we can use another function name <code>step</code> which behaves like the typical step function. For those not aware of the step function, it’s a function that is 0 before a certain value and 1 afterwards.</p>
-<pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-meta">@fragment</span>
+                                        <p>And now we get the correct circular output</p>
+                                        <p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1734262283717/e6a3c768-154a-4dd5-9176-054aaecab744.jpeg"
+                                                alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
+                                        <p>If we want a perfect circle we can use another function name
+                                            <code>step</code> which behaves like the typical step function. For those
+                                            not aware of the step function, it’s a function that is 0 before a certain
+                                            value and 1 afterwards.</p>
+                                        <pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-meta">@fragment</span>
     fn <span class="hljs-title function_">fs</span>(<span class="hljs-meta">@builtin</span>(position) <span class="hljs-attr">pos</span>: vec4f) -&gt; <span class="hljs-meta">@location</span>(<span class="hljs-number">0</span>) vec4f {
         <span class="hljs-keyword">var</span> uv = pos.<span class="hljs-property">xy</span> / <span class="hljs-title function_">vec2f</span>(props.<span class="hljs-property">width</span>, props.<span class="hljs-property">height</span>);
         uv = <span class="hljs-number">2</span> * <span class="hljs-title function_">vec2f</span>(uv.<span class="hljs-property">x</span>, -uv.<span class="hljs-property">y</span>) + <span class="hljs-title function_">vec2f</span>(-<span class="hljs-number">1</span>, <span class="hljs-number">1</span>);
@@ -203,10 +494,14 @@
         <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
         <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
       </button></pre>
-<p>This gives us the following output</p>
-<p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1734263358355/d19b1fbf-cfbe-4914-8bc4-c4df96ed267c.jpeg" alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
-<p>Not bad but you’ll notice the edge is quite sharp. We can fix this by using the <code>smoothstep</code> function instead which behaves exactly like the <code>step</code> function but it performs a smoother change from <code>0</code> to <code>1</code> based on two provided values</p>
-<pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-meta">@fragment</span>
+                                        <p>This gives us the following output</p>
+                                        <p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1734263358355/d19b1fbf-cfbe-4914-8bc4-c4df96ed267c.jpeg"
+                                                alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
+                                        <p>Not bad but you’ll notice the edge is quite sharp. We can fix this by using
+                                            the <code>smoothstep</code> function instead which behaves exactly like the
+                                            <code>step</code> function but it performs a smoother change from
+                                            <code>0</code> to <code>1</code> based on two provided values</p>
+                                        <pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-meta">@fragment</span>
     fn <span class="hljs-title function_">fs</span>(<span class="hljs-meta">@builtin</span>(position) <span class="hljs-attr">pos</span>: vec4f) -&gt; <span class="hljs-meta">@location</span>(<span class="hljs-number">0</span>) vec4f {
         <span class="hljs-keyword">var</span> uv = pos.<span class="hljs-property">xy</span> / <span class="hljs-title function_">vec2f</span>(props.<span class="hljs-property">width</span>, props.<span class="hljs-property">height</span>);
         uv = <span class="hljs-number">2</span> * <span class="hljs-title function_">vec2f</span>(uv.<span class="hljs-property">x</span>, -uv.<span class="hljs-property">y</span>) + <span class="hljs-title function_">vec2f</span>(-<span class="hljs-number">1</span>, <span class="hljs-number">1</span>);
@@ -221,9 +516,10 @@
         <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
         <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
       </button></pre>
-<p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1734265386904/aaf8cf6c-f2c8-4f21-9514-e204a6ec2875.jpeg" alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
-<p>we can also invert the colours like so.</p>
-<pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-meta">@fragment</span>
+                                        <p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1734265386904/aaf8cf6c-f2c8-4f21-9514-e204a6ec2875.jpeg"
+                                                alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
+                                        <p>we can also invert the colours like so.</p>
+                                        <pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-meta">@fragment</span>
     fn <span class="hljs-title function_">fs</span>(<span class="hljs-meta">@builtin</span>(position) <span class="hljs-attr">pos</span>: vec4f) -&gt; <span class="hljs-meta">@location</span>(<span class="hljs-number">0</span>) vec4f {
         <span class="hljs-keyword">var</span> uv = pos.<span class="hljs-property">xy</span> / <span class="hljs-title function_">vec2f</span>(props.<span class="hljs-property">width</span>, props.<span class="hljs-property">height</span>);
         uv = <span class="hljs-number">2</span> * <span class="hljs-title function_">vec2f</span>(uv.<span class="hljs-property">x</span>, -uv.<span class="hljs-property">y</span>) + <span class="hljs-title function_">vec2f</span>(-<span class="hljs-number">1</span>, <span class="hljs-number">1</span>);
@@ -238,9 +534,11 @@
         <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
         <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
       </button></pre>
-<p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1734268833395/c6205fac-027a-4675-b3c4-522f5a877c3a.jpeg" alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
-<p>A cool thing we can do is form a ring outline by subtracting a smaller circle from a bigger circle.</p>
-<pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-meta">@fragment</span>
+                                        <p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1734268833395/c6205fac-027a-4675-b3c4-522f5a877c3a.jpeg"
+                                                alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
+                                        <p>A cool thing we can do is form a ring outline by subtracting a smaller circle
+                                            from a bigger circle.</p>
+                                        <pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-meta">@fragment</span>
     fn <span class="hljs-title function_">fs</span>(<span class="hljs-meta">@builtin</span>(position) <span class="hljs-attr">pos</span>: vec4f) -&gt; <span class="hljs-meta">@location</span>(<span class="hljs-number">0</span>) vec4f {
         <span class="hljs-keyword">var</span> uv = pos.<span class="hljs-property">xy</span> / <span class="hljs-title function_">vec2f</span>(props.<span class="hljs-property">width</span>, props.<span class="hljs-property">height</span>);
         uv = <span class="hljs-number">2</span> * <span class="hljs-title function_">vec2f</span>(uv.<span class="hljs-property">x</span>, -uv.<span class="hljs-property">y</span>) + <span class="hljs-title function_">vec2f</span>(-<span class="hljs-number">1</span>, <span class="hljs-number">1</span>);
@@ -257,10 +555,14 @@
         <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
         <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
       </button></pre>
-<p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1734269183478/01f4a9d7-cb41-48e6-b51c-0d8094fbccd4.jpeg" alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
-<p>Pay attention to this subtracting trick I did right here. You’ll often see a lot of this in shader renderings where we create new shapes by either removing existing shapes or adding new shapes.</p>
-<p>Now let’s see if we can get some repetitions going. For this, we’re gonna make use of the <code>sin</code> function.</p>
-<pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-meta">@fragment</span>
+                                        <p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1734269183478/01f4a9d7-cb41-48e6-b51c-0d8094fbccd4.jpeg"
+                                                alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
+                                        <p>Pay attention to this subtracting trick I did right here. You’ll often see a
+                                            lot of this in shader renderings where we create new shapes by either
+                                            removing existing shapes or adding new shapes.</p>
+                                        <p>Now let’s see if we can get some repetitions going. For this, we’re gonna
+                                            make use of the <code>sin</code> function.</p>
+                                        <pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-meta">@fragment</span>
     fn <span class="hljs-title function_">fs</span>(<span class="hljs-meta">@builtin</span>(position) <span class="hljs-attr">pos</span>: vec4f) -&gt; <span class="hljs-meta">@location</span>(<span class="hljs-number">0</span>) vec4f {
         <span class="hljs-keyword">var</span> uv = pos.<span class="hljs-property">xy</span> / <span class="hljs-title function_">vec2f</span>(props.<span class="hljs-property">width</span>, props.<span class="hljs-property">height</span>);
         uv = <span class="hljs-number">2</span> * <span class="hljs-title function_">vec2f</span>(uv.<span class="hljs-property">x</span>, -uv.<span class="hljs-property">y</span>) + <span class="hljs-title function_">vec2f</span>(-<span class="hljs-number">1</span>, <span class="hljs-number">1</span>);
@@ -276,8 +578,9 @@
         <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
         <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
       </button></pre>
-<p>You’ll notice I’ve gone back to the black circle code but I added a <code>sin</code> in-between. Les see what we get.</p>
-<pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-meta">@fragment</span>
+                                        <p>You’ll notice I’ve gone back to the black circle code but I added a
+                                            <code>sin</code> in-between. Les see what we get.</p>
+                                        <pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-meta">@fragment</span>
     fn <span class="hljs-title function_">fs</span>(<span class="hljs-meta">@builtin</span>(position) <span class="hljs-attr">pos</span>: vec4f) -&gt; <span class="hljs-meta">@location</span>(<span class="hljs-number">0</span>) vec4f {
         <span class="hljs-keyword">var</span> uv = pos.<span class="hljs-property">xy</span> / <span class="hljs-title function_">vec2f</span>(props.<span class="hljs-property">width</span>, props.<span class="hljs-property">height</span>);
         uv = <span class="hljs-number">2</span> * <span class="hljs-title function_">vec2f</span>(uv.<span class="hljs-property">x</span>, -uv.<span class="hljs-property">y</span>) + <span class="hljs-title function_">vec2f</span>(-<span class="hljs-number">1</span>, <span class="hljs-number">1</span>);
@@ -293,9 +596,11 @@
         <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
         <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
       </button></pre>
-<p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1734270730122/fd18f724-5504-4c6e-a548-851c83a8e427.jpeg" alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
-<p>🤔🤔 You’ll notice nothing changed at all. This is because at the moment we only have one frequency cycle. Let’s add a few more.</p>
-<pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-meta">@fragment</span>
+                                        <p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1734270730122/fd18f724-5504-4c6e-a548-851c83a8e427.jpeg"
+                                                alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
+                                        <p>🤔🤔 You’ll notice nothing changed at all. This is because at the moment we
+                                            only have one frequency cycle. Let’s add a few more.</p>
+                                        <pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-meta">@fragment</span>
     fn <span class="hljs-title function_">fs</span>(<span class="hljs-meta">@builtin</span>(position) <span class="hljs-attr">pos</span>: vec4f) -&gt; <span class="hljs-meta">@location</span>(<span class="hljs-number">0</span>) vec4f {
         <span class="hljs-keyword">var</span> uv = pos.<span class="hljs-property">xy</span> / <span class="hljs-title function_">vec2f</span>(props.<span class="hljs-property">width</span>, props.<span class="hljs-property">height</span>);
         uv = <span class="hljs-number">2</span> * <span class="hljs-title function_">vec2f</span>(uv.<span class="hljs-property">x</span>, -uv.<span class="hljs-property">y</span>) + <span class="hljs-title function_">vec2f</span>(-<span class="hljs-number">1</span>, <span class="hljs-number">1</span>);
@@ -311,9 +616,11 @@
         <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
         <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
       </button></pre>
-<p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1734270842351/f0226d4c-f243-432a-aa0d-ab4d851c122a.jpeg" alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
-<p>The last thing we can do is add a time component. That way we’ll have things finally moving on the screen.</p>
-<pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-meta">@fragment</span>
+                                        <p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1734270842351/f0226d4c-f243-432a-aa0d-ab4d851c122a.jpeg"
+                                                alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
+                                        <p>The last thing we can do is add a time component. That way we’ll have things
+                                            finally moving on the screen.</p>
+                                        <pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-meta">@fragment</span>
     fn <span class="hljs-title function_">fs</span>(<span class="hljs-meta">@builtin</span>(position) <span class="hljs-attr">pos</span>: vec4f) -&gt; <span class="hljs-meta">@location</span>(<span class="hljs-number">0</span>) vec4f {
         <span class="hljs-keyword">let</span> t = props.<span class="hljs-property">time</span>;
 
@@ -331,17 +638,36 @@
         <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
         <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
       </button></pre>
-<p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1734272358501/6704e726-d49f-4e8a-a8df-7d180db788f8.gif" alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
-<h2 id="heading-conclusion">Conclusion</h2>
-<p>And there we have it our first art piece. Feel free to continue with the video I linked if you want to create more things but I hope this has helped demystify the world of shaders a bit. 😁 I wish you well.</p>
-</div></div></div></div><div class="max-w-2xl mx-auto border-t border-border pt-8 space-y-5"><div class="flex flex-wrap items-center gap-2"><a class="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 text-sm text-muted-foreground transition hover:border-primary hover:text-primary" href="/tag/beginner">#<!-- -->beginner</a><a class="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 text-sm text-muted-foreground transition hover:border-primary hover:text-primary" href="/tag/shader">#<!-- -->shader</a><a class="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 text-sm text-muted-foreground transition hover:border-primary hover:text-primary" href="/tag/webdev">#<!-- -->webdev</a><a class="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 text-sm text-muted-foreground transition hover:border-primary hover:text-primary" href="/tag/web-development">#<!-- -->web-development</a><a class="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 text-sm text-muted-foreground transition hover:border-primary hover:text-primary" href="/tag/webgpu">#<!-- -->webgpu</a><a class="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 text-sm text-muted-foreground transition hover:border-primary hover:text-primary" href="/tag/tutorial">#<!-- -->tutorial</a><a class="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 text-sm text-muted-foreground transition hover:border-primary hover:text-primary" href="/tag/step-by-step">#<!-- -->step-by-step</a></div></div></div></article></div></div></div></section>
-
-
-
-
-
-
-
-
-
-
+                                        <p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1734272358501/6704e726-d49f-4e8a-a8df-7d180db788f8.gif"
+                                                alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
+                                        <h2 id="heading-conclusion">Conclusion</h2>
+                                        <p>And there we have it our first art piece. Feel free to continue with the
+                                            video I linked if you want to create more things but I hope this has helped
+                                            demystify the world of shaders a bit. 😁 I wish you well.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="max-w-2xl mx-auto border-t border-border pt-8 space-y-5">
+                            <div class="flex flex-wrap items-center gap-2"><a
+                                    class="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 text-sm text-muted-foreground transition hover:border-primary hover:text-primary"
+                                    href="/tag/beginner">#<!-- -->beginner</a><a
+                                    class="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 text-sm text-muted-foreground transition hover:border-primary hover:text-primary"
+                                    href="/tag/shader">#<!-- -->shader</a><a
+                                    class="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 text-sm text-muted-foreground transition hover:border-primary hover:text-primary"
+                                    href="/tag/webdev">#<!-- -->webdev</a><a
+                                    class="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 text-sm text-muted-foreground transition hover:border-primary hover:text-primary"
+                                    href="/tag/web-development">#<!-- -->web-development</a><a
+                                    class="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 text-sm text-muted-foreground transition hover:border-primary hover:text-primary"
+                                    href="/tag/webgpu">#<!-- -->webgpu</a><a
+                                    class="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 text-sm text-muted-foreground transition hover:border-primary hover:text-primary"
+                                    href="/tag/tutorial">#<!-- -->tutorial</a><a
+                                    class="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 text-sm text-muted-foreground transition hover:border-primary hover:text-primary"
+                                    href="/tag/step-by-step">#<!-- -->step-by-step</a></div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>

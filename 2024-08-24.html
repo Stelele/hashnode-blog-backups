@@ -1,28 +1,207 @@
-<section class="py-8"><div class="px-4 sm:px-8"><div class="w-full max-w-full xl:mx-auto xl:max-w-[80rem] 2xl:max-w-[90rem]"><div class="grid gap-5 max-w-full"><article class="w-full max-w-full rounded-xl border bg-card text-card-foreground"><div class="px-5 pt-12 pb-8 sm:px-8"><header class="space-y-5"><div class="space-y-4 text-center max-w-4xl mx-auto"><h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight text-balance text-foreground">How to Set Up WebGPU with TypeScript and Vite: A Simplified Guide</h1><div class="flex flex-wrap items-center justify-center gap-3 text-sm text-muted-foreground"><div class="flex items-center gap-2"><span>Updated</span><time datetime="2024-08-24T14:31:27.089Z">August 24, 2024</time></div><span class="text-muted-foreground">•</span><span>8<!-- --> min read</span></div></div></header></div><div class="w-full"><img alt="How to Set Up WebGPU with TypeScript and Vite: A Simplified Guide" width="1200" height="750" decoding="async" data-nimg="1" class="w-full h-auto" style="color: transparent; --darkreader-inline-color: transparent;" srcset="/_next/image?url=https%3A%2F%2Fcdn.hashnode.com%2Fres%2Fhashnode%2Fimage%2Fupload%2Fv1724508434385%2F71c6bd44-8223-4a27-ad19-1ac0f7fb8394.jpeg&amp;w=1200&amp;q=75 1x, /_next/image?url=https%3A%2F%2Fcdn.hashnode.com%2Fres%2Fhashnode%2Fimage%2Fupload%2Fv1724508434385%2F71c6bd44-8223-4a27-ad19-1ac0f7fb8394.jpeg&amp;w=3840&amp;q=75 2x" src="/_next/image?url=https%3A%2F%2Fcdn.hashnode.com%2Fres%2Fhashnode%2Fimage%2Fupload%2Fv1724508434385%2F71c6bd44-8223-4a27-ad19-1ac0f7fb8394.jpeg&amp;w=3840&amp;q=75" data-darkreader-inline-color=""></div><div class="px-5 py-12 sm:px-8 space-y-8"><div class="max-w-2xl mx-auto"><div class="flex flex-wrap items-center gap-5"><div class="flex items-center gap-5"><div class="flex gap-3 items-start"><a target="_blank" rel="noopener" href="https://hashnode.com/@giftmugweni"><span class="relative flex shrink-0 overflow-hidden rounded-full h-10 w-10 border border-border transition-opacity hover:opacity-80"><img class="aspect-square h-full w-full" alt="Gift Mugweni" src="https://cdn.hashnode.com/res/hashnode/image/upload/v1715695145793/08835199-4bd3-4f15-9cd8-4d7d42276f2f.jpeg?auto=compress,format&amp;format=webp"></span></a><div class="min-w-0"><div class="flex items-center gap-2"><a target="_blank" rel="noopener" class="font-medium text-foreground hover:text-primary transition-colors" href="https://hashnode.com/@giftmugweni">Gift Mugweni</a><div class="flex items-center gap-1.5 text-sm"><a target="_blank" rel="noopener noreferrer nofollow ugc" class="text-muted-foreground hover:text-foreground transition-colors" aria-label="LinkedIn" href="https://www.linkedin.com/in/gift-mugweni/"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a></div></div><div class="text-sm text-muted-foreground line-clamp-2"><p>Just your chilled programmer sharing random facts I've learnt along my journey.</p>
-</div></div></div></div></div></div><div class="max-w-2xl mx-auto"><a class="group flex items-center gap-3 rounded-lg border border-border px-3 py-2 transition hover:border-primary hover:bg-accent" href="/series/graphics-journey"><i class="fa-jelly fa-layer-group h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" aria-hidden="true"></i><div class="flex flex-col"><span class="text-sm text-muted-foreground">Part of series</span><span class="text-sm font-medium text-foreground group-hover:text-primary transition-colors">Graphics Journey</span></div></a></div><div class="relative"><aside class="hidden xl:block absolute top-0 left-0 h-full"><nav class="sticky top-22 w-44"><div class="hidden xl:block group/toc relative"><div class="grid"><div class="[grid-area:1/1] opacity-0 group-hover/toc:opacity-100 transition-opacity duration-200 max-h-[calc(100vh-3rem)] overflow-y-auto"><p class="text-sm font-semibold uppercase tracking-wide text-muted-foreground mb-3">On this page</p><nav aria-label="On this page"><a class="block py-1 text-sm transition-colors hover:text-foreground text-muted-foreground" style="padding-left:0rem" href="#heading-setting-up-the-project">Setting up the project</a><a class="block py-1 text-sm transition-colors hover:text-foreground text-muted-foreground" style="padding-left:0rem" href="#heading-what-is-the-purpose-of-a-game-engine">What is the purpose of a game engine?</a><a class="block py-1 text-sm transition-colors hover:text-foreground text-muted-foreground" style="padding-left:0rem" href="#heading-building-the-basic-rendering-system">Building the basic rendering system</a><a class="block py-1 text-sm transition-colors hover:text-foreground text-muted-foreground" style="padding-left:0rem" href="#heading-the-init-func">The init func</a><a class="block py-1 text-sm transition-colors hover:text-foreground text-muted-foreground" style="padding-left:0rem" href="#heading-getting-a-gpu-device-and-configuring-canvas">Getting a GPU device and configuring canvas</a><a class="block py-1 text-sm transition-colors hover:text-foreground text-muted-foreground" style="padding-left:0rem" href="#heading-loading-shaders">Loading shaders</a><a class="block py-1 text-sm transition-colors hover:text-foreground text-muted-foreground" style="padding-left:0rem" href="#heading-configuring-pipeline">Configuring pipeline</a><a class="block py-1 text-sm transition-colors hover:text-foreground text-muted-foreground" style="padding-left:0rem" href="#heading-rendering-function">Rendering function</a><a class="block py-1 text-sm transition-colors hover:text-foreground text-muted-foreground" style="padding-left:0rem" href="#heading-conclusion">Conclusion</a></nav></div><div class="[grid-area:1/1] relative flex flex-col gap-px transition-opacity duration-200 group-hover/toc:opacity-0 pointer-events-none self-start max-h-[calc(100vh-3rem)] overflow-hidden pl-3"><div class="absolute left-0 w-0.5 rounded-full bg-foreground transition-all duration-300 opacity-0" style="transform:translateY(0px);height:12px"></div><div class="flex items-center h-3" style="padding-left:0px"><div class="h-0.5 rounded-full transition-all duration-300 bg-border" style="width:22px"></div></div><div class="flex items-center h-3" style="padding-left:0px"><div class="h-0.5 rounded-full transition-all duration-300 bg-border" style="width:37px"></div></div><div class="flex items-center h-3" style="padding-left:0px"><div class="h-0.5 rounded-full transition-all duration-300 bg-border" style="width:49px"></div></div><div class="flex items-center h-3" style="padding-left:0px"><div class="h-0.5 rounded-full transition-all duration-300 bg-border" style="width:13px"></div></div><div class="flex items-center h-3" style="padding-left:0px"><div class="h-0.5 rounded-full transition-all duration-300 bg-border" style="width:43px"></div></div><div class="flex items-center h-3" style="padding-left:0px"><div class="h-0.5 rounded-full transition-all duration-300 bg-border" style="width:15px"></div></div><div class="flex items-center h-3" style="padding-left:0px"><div class="h-0.5 rounded-full transition-all duration-300 bg-border" style="width:20px"></div></div><div class="flex items-center h-3" style="padding-left:0px"><div class="h-0.5 rounded-full transition-all duration-300 bg-border" style="width:18px"></div></div><div class="flex items-center h-3" style="padding-left:0px"><div class="h-0.5 rounded-full transition-all duration-300 bg-border" style="width:10px"></div></div></div></div></div></nav></aside><div class="max-w-2xl mx-auto min-w-0 contain-[inline-size]"><div class="prose dark:prose-invert prose-pre:bg-foreground prose-pre:text-background prose-pre:border prose-pre:border-border prose-pre:rounded prose-pre:px-5 prose-pre:py-4 dark:prose-pre:bg-muted dark:prose-pre:text-foreground dark:prose-pre:border-border prose-pre:overflow-x-auto max-w-none text-base sm:text-lg [&amp;&gt;div&gt;p:first-child]:mt-0 [&amp;&gt;div&gt;p:first-child]:pt-0 min-w-0 wrap-break-word [&amp;_a]:break-all **:max-w-full"><div><p>Hello 👋, how are you doing? It's a lovely day right? In my last post, I said I was making a game engine and thought instead of writing documentation for it I might as well make blog articles to document my journey (I mean it's basically free content).</p>
-<p><img src="https://i.pinimg.com/originals/2b/1a/71/2b1a714182a6d0558d33f8c61f3d00b4.gif" alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
-<p>I'm <a target="_blank" href="https://github.com/Stelele/web-game-engine" rel="noopener noreferrer nofollow ugc">decently far in the project</a> at present but, it didn't feel right to start from my current point as there's too much missing context. So let's use the power of time travel and go way back to when I started the project.</p>
-<h1 id="heading-setting-up-the-project">Setting up the project</h1>
-<p>So far, we've been using vanilla JavaScript to work with WebGPU and I probably could make the entire engine that way. I didn't want to though as I feel more comfortable working with TypeScript because of its sweet sweet useless types that operate on the "Trust me bro" ethos. As such, we're gonna have to create a basic build setup. I used to use Webpack but thought I'd give Vite a try for a change as I'd heard good things about it.</p>
-<p>To create a project you run the below command in your terminal.</p>
-<pre style="position: relative;"><code class="lang-c hljs language-c" data-highlighted="yes">npm create vite@latest
+<section class="py-8">
+    <link rel="canonical" href="https://giftmugweni.hashnode.dev/how-to-set-up-webgpu-with-typescript-and-vite-a-simplified-guide">
+    <div class="px-4 sm:px-8">
+        <div class="w-full max-w-full xl:mx-auto xl:max-w-[80rem] 2xl:max-w-[90rem]">
+            <div class="grid gap-5 max-w-full">
+                <article class="w-full max-w-full rounded-xl border bg-card text-card-foreground">
+                    <div class="px-5 pt-12 pb-8 sm:px-8">
+                        <header class="space-y-5">
+                            <div class="space-y-4 text-center max-w-4xl mx-auto">
+                                <h1
+                                    class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight text-balance text-foreground">
+                                    How to Set Up WebGPU with TypeScript and Vite: A Simplified Guide</h1>
+                                <div
+                                    class="flex flex-wrap items-center justify-center gap-3 text-sm text-muted-foreground">
+                                    <div class="flex items-center gap-2"><span>Updated</span><time
+                                            datetime="2024-08-24T14:31:27.089Z">August 24, 2024</time></div><span
+                                        class="text-muted-foreground">•</span><span>8<!-- --> min read</span>
+                                </div>
+                            </div>
+                        </header>
+                    </div>
+                    <div class="w-full"><img alt="How to Set Up WebGPU with TypeScript and Vite: A Simplified Guide"
+                            width="1200" height="750" decoding="async" data-nimg="1" class="w-full h-auto"
+                            style="color: transparent; --darkreader-inline-color: transparent;"
+                            srcset="/_next/image?url=https%3A%2F%2Fcdn.hashnode.com%2Fres%2Fhashnode%2Fimage%2Fupload%2Fv1724508434385%2F71c6bd44-8223-4a27-ad19-1ac0f7fb8394.jpeg&amp;w=1200&amp;q=75 1x, /_next/image?url=https%3A%2F%2Fcdn.hashnode.com%2Fres%2Fhashnode%2Fimage%2Fupload%2Fv1724508434385%2F71c6bd44-8223-4a27-ad19-1ac0f7fb8394.jpeg&amp;w=3840&amp;q=75 2x"
+                            src="/_next/image?url=https%3A%2F%2Fcdn.hashnode.com%2Fres%2Fhashnode%2Fimage%2Fupload%2Fv1724508434385%2F71c6bd44-8223-4a27-ad19-1ac0f7fb8394.jpeg&amp;w=3840&amp;q=75"
+                            data-darkreader-inline-color=""></div>
+                    <div class="px-5 py-12 sm:px-8 space-y-8">
+                        <div class="max-w-2xl mx-auto">
+                            <div class="flex flex-wrap items-center gap-5">
+                                <div class="flex items-center gap-5">
+                                    <div class="flex gap-3 items-start"><a target="_blank" rel="noopener"
+                                            href="https://hashnode.com/@giftmugweni"><span
+                                                class="relative flex shrink-0 overflow-hidden rounded-full h-10 w-10 border border-border transition-opacity hover:opacity-80"><img
+                                                    class="aspect-square h-full w-full" alt="Gift Mugweni"
+                                                    src="https://cdn.hashnode.com/res/hashnode/image/upload/v1715695145793/08835199-4bd3-4f15-9cd8-4d7d42276f2f.jpeg?auto=compress,format&amp;format=webp"></span></a>
+                                        <div class="min-w-0">
+                                            <div class="flex items-center gap-2"><a target="_blank" rel="noopener"
+                                                    class="font-medium text-foreground hover:text-primary transition-colors"
+                                                    href="https://hashnode.com/@giftmugweni">Gift Mugweni</a>
+                                                <div class="flex items-center gap-1.5 text-sm"><a target="_blank"
+                                                        rel="noopener noreferrer nofollow ugc"
+                                                        class="text-muted-foreground hover:text-foreground transition-colors"
+                                                        aria-label="LinkedIn"
+                                                        href="https://www.linkedin.com/in/gift-mugweni/"><i
+                                                            class="fa-brands fa-linkedin" aria-hidden="true"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="text-sm text-muted-foreground line-clamp-2">
+                                                <p>Just your chilled programmer sharing random facts I've learnt along
+                                                    my journey.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="max-w-2xl mx-auto"><a
+                                class="group flex items-center gap-3 rounded-lg border border-border px-3 py-2 transition hover:border-primary hover:bg-accent"
+                                href="/series/graphics-journey"><i
+                                    class="fa-jelly fa-layer-group h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors"
+                                    aria-hidden="true"></i>
+                                <div class="flex flex-col"><span class="text-sm text-muted-foreground">Part of
+                                        series</span><span
+                                        class="text-sm font-medium text-foreground group-hover:text-primary transition-colors">Graphics
+                                        Journey</span></div>
+                            </a></div>
+                        <div class="relative">
+                            <aside class="hidden xl:block absolute top-0 left-0 h-full">
+                                <nav class="sticky top-22 w-44">
+                                    <div class="hidden xl:block group/toc relative">
+                                        <div class="grid">
+                                            <div
+                                                class="[grid-area:1/1] opacity-0 group-hover/toc:opacity-100 transition-opacity duration-200 max-h-[calc(100vh-3rem)] overflow-y-auto">
+                                                <p
+                                                    class="text-sm font-semibold uppercase tracking-wide text-muted-foreground mb-3">
+                                                    On this page</p>
+                                                <nav aria-label="On this page"><a
+                                                        class="block py-1 text-sm transition-colors hover:text-foreground text-muted-foreground"
+                                                        style="padding-left:0rem"
+                                                        href="#heading-setting-up-the-project">Setting up the
+                                                        project</a><a
+                                                        class="block py-1 text-sm transition-colors hover:text-foreground text-muted-foreground"
+                                                        style="padding-left:0rem"
+                                                        href="#heading-what-is-the-purpose-of-a-game-engine">What is the
+                                                        purpose of a game engine?</a><a
+                                                        class="block py-1 text-sm transition-colors hover:text-foreground text-muted-foreground"
+                                                        style="padding-left:0rem"
+                                                        href="#heading-building-the-basic-rendering-system">Building the
+                                                        basic rendering system</a><a
+                                                        class="block py-1 text-sm transition-colors hover:text-foreground text-muted-foreground"
+                                                        style="padding-left:0rem" href="#heading-the-init-func">The init
+                                                        func</a><a
+                                                        class="block py-1 text-sm transition-colors hover:text-foreground text-muted-foreground"
+                                                        style="padding-left:0rem"
+                                                        href="#heading-getting-a-gpu-device-and-configuring-canvas">Getting
+                                                        a GPU device and configuring canvas</a><a
+                                                        class="block py-1 text-sm transition-colors hover:text-foreground text-muted-foreground"
+                                                        style="padding-left:0rem"
+                                                        href="#heading-loading-shaders">Loading shaders</a><a
+                                                        class="block py-1 text-sm transition-colors hover:text-foreground text-muted-foreground"
+                                                        style="padding-left:0rem"
+                                                        href="#heading-configuring-pipeline">Configuring pipeline</a><a
+                                                        class="block py-1 text-sm transition-colors hover:text-foreground text-muted-foreground"
+                                                        style="padding-left:0rem"
+                                                        href="#heading-rendering-function">Rendering function</a><a
+                                                        class="block py-1 text-sm transition-colors hover:text-foreground text-muted-foreground"
+                                                        style="padding-left:0rem"
+                                                        href="#heading-conclusion">Conclusion</a></nav>
+                                            </div>
+                                            <div
+                                                class="[grid-area:1/1] relative flex flex-col gap-px transition-opacity duration-200 group-hover/toc:opacity-0 pointer-events-none self-start max-h-[calc(100vh-3rem)] overflow-hidden pl-3">
+                                                <div class="absolute left-0 w-0.5 rounded-full bg-foreground transition-all duration-300 opacity-0"
+                                                    style="transform:translateY(0px);height:12px"></div>
+                                                <div class="flex items-center h-3" style="padding-left:0px">
+                                                    <div class="h-0.5 rounded-full transition-all duration-300 bg-border"
+                                                        style="width:22px"></div>
+                                                </div>
+                                                <div class="flex items-center h-3" style="padding-left:0px">
+                                                    <div class="h-0.5 rounded-full transition-all duration-300 bg-border"
+                                                        style="width:37px"></div>
+                                                </div>
+                                                <div class="flex items-center h-3" style="padding-left:0px">
+                                                    <div class="h-0.5 rounded-full transition-all duration-300 bg-border"
+                                                        style="width:49px"></div>
+                                                </div>
+                                                <div class="flex items-center h-3" style="padding-left:0px">
+                                                    <div class="h-0.5 rounded-full transition-all duration-300 bg-border"
+                                                        style="width:13px"></div>
+                                                </div>
+                                                <div class="flex items-center h-3" style="padding-left:0px">
+                                                    <div class="h-0.5 rounded-full transition-all duration-300 bg-border"
+                                                        style="width:43px"></div>
+                                                </div>
+                                                <div class="flex items-center h-3" style="padding-left:0px">
+                                                    <div class="h-0.5 rounded-full transition-all duration-300 bg-border"
+                                                        style="width:15px"></div>
+                                                </div>
+                                                <div class="flex items-center h-3" style="padding-left:0px">
+                                                    <div class="h-0.5 rounded-full transition-all duration-300 bg-border"
+                                                        style="width:20px"></div>
+                                                </div>
+                                                <div class="flex items-center h-3" style="padding-left:0px">
+                                                    <div class="h-0.5 rounded-full transition-all duration-300 bg-border"
+                                                        style="width:18px"></div>
+                                                </div>
+                                                <div class="flex items-center h-3" style="padding-left:0px">
+                                                    <div class="h-0.5 rounded-full transition-all duration-300 bg-border"
+                                                        style="width:10px"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </nav>
+                            </aside>
+                            <div class="max-w-2xl mx-auto min-w-0 contain-[inline-size]">
+                                <div
+                                    class="prose dark:prose-invert prose-pre:bg-foreground prose-pre:text-background prose-pre:border prose-pre:border-border prose-pre:rounded prose-pre:px-5 prose-pre:py-4 dark:prose-pre:bg-muted dark:prose-pre:text-foreground dark:prose-pre:border-border prose-pre:overflow-x-auto max-w-none text-base sm:text-lg [&amp;&gt;div&gt;p:first-child]:mt-0 [&amp;&gt;div&gt;p:first-child]:pt-0 min-w-0 wrap-break-word [&amp;_a]:break-all **:max-w-full">
+                                    <div>
+                                        <p>Hello 👋, how are you doing? It's a lovely day right? In my last post, I said
+                                            I was making a game engine and thought instead of writing documentation for
+                                            it I might as well make blog articles to document my journey (I mean it's
+                                            basically free content).</p>
+                                        <p><img src="https://i.pinimg.com/originals/2b/1a/71/2b1a714182a6d0558d33f8c61f3d00b4.gif"
+                                                alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
+                                        <p>I'm <a target="_blank" href="https://github.com/Stelele/web-game-engine"
+                                                rel="noopener noreferrer nofollow ugc">decently far in the project</a>
+                                            at present but, it didn't feel right to start from my current point as
+                                            there's too much missing context. So let's use the power of time travel and
+                                            go way back to when I started the project.</p>
+                                        <h1 id="heading-setting-up-the-project">Setting up the project</h1>
+                                        <p>So far, we've been using vanilla JavaScript to work with WebGPU and I
+                                            probably could make the entire engine that way. I didn't want to though as I
+                                            feel more comfortable working with TypeScript because of its sweet sweet
+                                            useless types that operate on the "Trust me bro" ethos. As such, we're gonna
+                                            have to create a basic build setup. I used to use Webpack but thought I'd
+                                            give Vite a try for a change as I'd heard good things about it.</p>
+                                        <p>To create a project you run the below command in your terminal.</p>
+                                        <pre style="position: relative;"><code class="lang-c hljs language-c" data-highlighted="yes">npm create vite@latest
 </code><button class="copy-code-button" aria-label="Copy code" title="Copy code" style="position: absolute; top: 8px; right: 8px; padding: 6px; background: hsl(var(--muted)); border: 1px solid hsl(var(--border)); border-radius: 6px; cursor: pointer; opacity: 0; transition: opacity 0.2s; display: flex; align-items: center; justify-content: center; color: hsl(var(--muted-foreground)); z-index: 10; --darkreader-inline-bg: hsl(oklch(24% .0095 255)); --darkreader-inline-border-short: 1px solid hsl(var(--darkreader-border--border)); --darkreader-inline-color: hsl(oklch(74% .01 255));" data-darkreader-inline-bg="" data-darkreader-inline-border-short="" data-darkreader-inline-color="">
         <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
         <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
       </button></pre>
-<p>We're not making anything extra so the <code>vanilla-ts</code> template will do just fine. Here's a screenshot of the options selected in the setup.</p>
-<p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1724487834957/ba495d9f-88a2-47b9-98ae-3bcf54b1b66c.jpeg" alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
-<p>When opening the project you should have the following files present more or less.</p>
-<p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1724488393382/cc566e66-fe5b-490c-8b17-a1e5ecfb058b.jpeg" alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
-<p>We don't need the <code>counter.ts</code>, <code>style.css</code>, and <code>typescript.svg</code> files so you're free to delete those at your pleasure.</p>
-<p>The next thing we need is to add the types for WebGPU since they do not come pre-added at the moment. To download the types run the below command.</p>
-<pre style="position: relative;"><code class="lang-powershell hljs language-powershell" data-highlighted="yes">npm i @webgpu/types
+                                        <p>We're not making anything extra so the <code>vanilla-ts</code> template will
+                                            do just fine. Here's a screenshot of the options selected in the setup.</p>
+                                        <p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1724487834957/ba495d9f-88a2-47b9-98ae-3bcf54b1b66c.jpeg"
+                                                alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
+                                        <p>When opening the project you should have the following files present more or
+                                            less.</p>
+                                        <p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1724488393382/cc566e66-fe5b-490c-8b17-a1e5ecfb058b.jpeg"
+                                                alt="" class="image--center mx-auto" style="cursor: zoom-in;"></p>
+                                        <p>We don't need the <code>counter.ts</code>, <code>style.css</code>, and
+                                            <code>typescript.svg</code> files so you're free to delete those at your
+                                            pleasure.</p>
+                                        <p>The next thing we need is to add the types for WebGPU since they do not come
+                                            pre-added at the moment. To download the types run the below command.</p>
+                                        <pre style="position: relative;"><code class="lang-powershell hljs language-powershell" data-highlighted="yes">npm i @webgpu/types
 </code><button class="copy-code-button" aria-label="Copy code" title="Copy code" style="position: absolute; top: 8px; right: 8px; padding: 6px; background: hsl(var(--muted)); border: 1px solid hsl(var(--border)); border-radius: 6px; cursor: pointer; opacity: 0; transition: opacity 0.2s; display: flex; align-items: center; justify-content: center; color: hsl(var(--muted-foreground)); z-index: 10; --darkreader-inline-bg: hsl(oklch(24% .0095 255)); --darkreader-inline-border-short: 1px solid hsl(var(--darkreader-border--border)); --darkreader-inline-color: hsl(oklch(74% .01 255));" data-darkreader-inline-bg="" data-darkreader-inline-border-short="" data-darkreader-inline-color="">
         <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
         <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
       </button></pre>
-<p>This downloads the package but we still need to link it to our project so modify the <code>tsconfig.json</code> to look as below.</p>
-<pre style="position: relative;"><code class="lang-json hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
+                                        <p>This downloads the package but we still need to link it to our project so
+                                            modify the <code>tsconfig.json</code> to look as below.</p>
+                                        <pre style="position: relative;"><code class="lang-json hljs language-json" data-highlighted="yes"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"compilerOptions"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
     <span class="hljs-attr">"target"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"ES2020"</span><span class="hljs-punctuation">,</span>
     <span class="hljs-attr">"useDefineForClassFields"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span>
@@ -57,23 +236,34 @@
         <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
         <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
       </button></pre>
-<p>When I did this my types still weren't showing and after some googling, I also modified the <code>vite-env.d.ts</code> file to look like this.</p>
-<pre style="position: relative;"><code class="lang-xml hljs language-xml" data-highlighted="yes">/// <span class="hljs-tag">&lt;<span class="hljs-name">reference</span> <span class="hljs-attr">types</span>=<span class="hljs-string">"vite/client"</span> /&gt;</span>
+                                        <p>When I did this my types still weren't showing and after some googling, I
+                                            also modified the <code>vite-env.d.ts</code> file to look like this.</p>
+                                        <pre style="position: relative;"><code class="lang-xml hljs language-xml" data-highlighted="yes">/// <span class="hljs-tag">&lt;<span class="hljs-name">reference</span> <span class="hljs-attr">types</span>=<span class="hljs-string">"vite/client"</span> /&gt;</span>
 /// <span class="hljs-tag">&lt;<span class="hljs-name">reference</span> <span class="hljs-attr">types</span>=<span class="hljs-string">"@webgpu/types"</span> /&gt;</span>
 </code><button class="copy-code-button" aria-label="Copy code" title="Copy code" style="position: absolute; top: 8px; right: 8px; padding: 6px; background: hsl(var(--muted)); border: 1px solid hsl(var(--border)); border-radius: 6px; cursor: pointer; opacity: 0; transition: opacity 0.2s; display: flex; align-items: center; justify-content: center; color: hsl(var(--muted-foreground)); z-index: 10; --darkreader-inline-bg: hsl(oklch(24% .0095 255)); --darkreader-inline-border-short: 1px solid hsl(var(--darkreader-border--border)); --darkreader-inline-color: hsl(oklch(74% .01 255));" data-darkreader-inline-bg="" data-darkreader-inline-border-short="" data-darkreader-inline-color="">
         <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
         <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
       </button></pre>
-<p>If you're using the VSCode IDE, you can also download these extensions that introduce some much-needed syntax highlighting in the wgsl shader code.</p>
-<ul>
-<li><p><a target="_blank" href="https://marketplace.visualstudio.com/items?itemName=PolyMeilex.wgsl" rel="noopener noreferrer nofollow ugc"><strong>WGSL by</strong> PolyMeilex</a></p>
-</li>
-<li><p><a target="_blank" href="https://marketplace.visualstudio.com/items?itemName=ggsimm.wgsl-literal" rel="noopener noreferrer nofollow ugc">WGSL Literal by ggsimm</a></p>
-</li>
-</ul>
-<p>Next, replace the <code>index.html</code> and <code>main.ts</code> files with the below code.</p>
-<p><code>index.html</code></p>
-<pre style="position: relative;"><code class="lang-xml hljs language-xml" data-highlighted="yes"> <span class="hljs-meta">&lt;!doctype <span class="hljs-keyword">html</span>&gt;</span>
+                                        <p>If you're using the VSCode IDE, you can also download these extensions that
+                                            introduce some much-needed syntax highlighting in the wgsl shader code.</p>
+                                        <ul>
+                                            <li>
+                                                <p><a target="_blank"
+                                                        href="https://marketplace.visualstudio.com/items?itemName=PolyMeilex.wgsl"
+                                                        rel="noopener noreferrer nofollow ugc"><strong>WGSL by</strong>
+                                                        PolyMeilex</a></p>
+                                            </li>
+                                            <li>
+                                                <p><a target="_blank"
+                                                        href="https://marketplace.visualstudio.com/items?itemName=ggsimm.wgsl-literal"
+                                                        rel="noopener noreferrer nofollow ugc">WGSL Literal by
+                                                        ggsimm</a></p>
+                                            </li>
+                                        </ul>
+                                        <p>Next, replace the <code>index.html</code> and <code>main.ts</code> files with
+                                            the below code.</p>
+                                        <p><code>index.html</code></p>
+                                        <pre style="position: relative;"><code class="lang-xml hljs language-xml" data-highlighted="yes"> <span class="hljs-meta">&lt;!doctype <span class="hljs-keyword">html</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"en"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span> /&gt;</span>
@@ -100,8 +290,8 @@
         <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
         <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
       </button></pre>
-<p><code>main.ts</code></p>
-<pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Renderer</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">"./Renderer"</span>;
+                                        <p><code>main.ts</code></p>
+                                        <pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Renderer</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">"./Renderer"</span>;
 
 <span class="hljs-keyword">const</span> canvas = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">"GLCanvas"</span>) <span class="hljs-keyword">as</span> <span class="hljs-title class_">HTMLCanvasElement</span>
 
@@ -111,21 +301,62 @@ render.<span class="hljs-title function_">init</span>()
         <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
         <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
       </button></pre>
-<p>The <code>index.html</code> file should look familiar. Its main point is to set up a canvas where the output will be displayed. The canvas has also been resized to fill the window.</p>
-<p>The <code>main.ts</code> file contains code that will make sense as we go further down. To understand this, we need to ask a basic foundational question.</p>
-<h1 id="heading-what-is-the-purpose-of-a-game-engine">What is the purpose of a game engine?</h1>
-<p>Fundamentally, a game engine exists to make developing games easier by abstracting away important but unessential parts of the game-making process. For better context on what this means let's use a basic example of a like <a target="_blank" href="https://en.bandainamcoent.eu/elden-ring/elden-ring" rel="noopener noreferrer nofollow ugc">FromSoftware's Elden Ring</a> game.</p>
-<p>As far as the player is concerned, they are playing Elden Ring to enjoy exploring the open world, overcoming tough bosses, and getting lost in the scenery, music, and breathtaking visuals. All these things are difficult to get right and require a lot of effort and time from the game designers to perfect.</p>
-<p>What the player forgets is that they are interacting with the game via their controller or keyboard and mouse. They might be playing the game on drastically different screens, using devices with varying ranges of specifications. Aside from this, Elden Ring is a 3D game but they are playing it on a 2D screen so how does that work? How does the animation work? What about the lighting? How does the game handle the multiplayer aspects to ensure no one is cheating or that multiple players see the same thing? Now that we're down this rabbit hole, how even is that music getting played in the first place?</p>
-<p>All these questions must be answered before we start dealing with anything the player cares about and as I'm learning, they have no easy answers. As a game designer, you don't want to worry about these things. You're trying to make a game and provide memorable experiences. Could you make these things yourself? Yes, but that needs time, people, and money.</p>
-<p>This is where game engines come in. They don't guarantee you've got a good game and aren't all you need either. They're a small part of the bigger process of making games that focus primarily on key things like rendering, audio, networking, input, physics, lighting, modelling, etc. Hence my initial explanation of them abstracting away important but unessential elements.</p>
-<p>Now that we've answered this question we'll start working on the first element of the game engine, the rendering system.</p>
-<h1 id="heading-building-the-basic-rendering-system">Building the basic rendering system</h1>
-<p>What is a rendering system? In short, it's the thing responsible for drawing stuff on the screen. Practically speaking, this is where we'll be putting most of our WebGPU and shader logic as it directly relates to drawing stuff.</p>
-<p>To start, we'll be remaking our triangle example as that's the foundational building block. The implementation will be slightly different as I chose to wrap up this logic in a class so it is more compact and makes it easier to add more features.</p>
-<h2 id="heading-the-init-func">The init func</h2>
-<p>The first thing is to define the <code>Renderer</code> class in a new file we'll call <code>Renderer.ts</code> that will house all this logic.</p>
-<pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes"><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Renderer</span> {
+                                        <p>The <code>index.html</code> file should look familiar. Its main point is to
+                                            set up a canvas where the output will be displayed. The canvas has also been
+                                            resized to fill the window.</p>
+                                        <p>The <code>main.ts</code> file contains code that will make sense as we go
+                                            further down. To understand this, we need to ask a basic foundational
+                                            question.</p>
+                                        <h1 id="heading-what-is-the-purpose-of-a-game-engine">What is the purpose of a
+                                            game engine?</h1>
+                                        <p>Fundamentally, a game engine exists to make developing games easier by
+                                            abstracting away important but unessential parts of the game-making process.
+                                            For better context on what this means let's use a basic example of a like <a
+                                                target="_blank"
+                                                href="https://en.bandainamcoent.eu/elden-ring/elden-ring"
+                                                rel="noopener noreferrer nofollow ugc">FromSoftware's Elden Ring</a>
+                                            game.</p>
+                                        <p>As far as the player is concerned, they are playing Elden Ring to enjoy
+                                            exploring the open world, overcoming tough bosses, and getting lost in the
+                                            scenery, music, and breathtaking visuals. All these things are difficult to
+                                            get right and require a lot of effort and time from the game designers to
+                                            perfect.</p>
+                                        <p>What the player forgets is that they are interacting with the game via their
+                                            controller or keyboard and mouse. They might be playing the game on
+                                            drastically different screens, using devices with varying ranges of
+                                            specifications. Aside from this, Elden Ring is a 3D game but they are
+                                            playing it on a 2D screen so how does that work? How does the animation
+                                            work? What about the lighting? How does the game handle the multiplayer
+                                            aspects to ensure no one is cheating or that multiple players see the same
+                                            thing? Now that we're down this rabbit hole, how even is that music getting
+                                            played in the first place?</p>
+                                        <p>All these questions must be answered before we start dealing with anything
+                                            the player cares about and as I'm learning, they have no easy answers. As a
+                                            game designer, you don't want to worry about these things. You're trying to
+                                            make a game and provide memorable experiences. Could you make these things
+                                            yourself? Yes, but that needs time, people, and money.</p>
+                                        <p>This is where game engines come in. They don't guarantee you've got a good
+                                            game and aren't all you need either. They're a small part of the bigger
+                                            process of making games that focus primarily on key things like rendering,
+                                            audio, networking, input, physics, lighting, modelling, etc. Hence my
+                                            initial explanation of them abstracting away important but unessential
+                                            elements.</p>
+                                        <p>Now that we've answered this question we'll start working on the first
+                                            element of the game engine, the rendering system.</p>
+                                        <h1 id="heading-building-the-basic-rendering-system">Building the basic
+                                            rendering system</h1>
+                                        <p>What is a rendering system? In short, it's the thing responsible for drawing
+                                            stuff on the screen. Practically speaking, this is where we'll be putting
+                                            most of our WebGPU and shader logic as it directly relates to drawing stuff.
+                                        </p>
+                                        <p>To start, we'll be remaking our triangle example as that's the foundational
+                                            building block. The implementation will be slightly different as I chose to
+                                            wrap up this logic in a class so it is more compact and makes it easier to
+                                            add more features.</p>
+                                        <h2 id="heading-the-init-func">The init func</h2>
+                                        <p>The first thing is to define the <code>Renderer</code> class in a new file
+                                            we'll call <code>Renderer.ts</code> that will house all this logic.</p>
+                                        <pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes"><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Renderer</span> {
     <span class="hljs-keyword">private</span> device!: <span class="hljs-title class_">GPUDevice</span>
     <span class="hljs-keyword">private</span> context!: <span class="hljs-title class_">GPUCanvasContext</span>
     <span class="hljs-keyword">private</span> presentationFormat!: <span class="hljs-title class_">GPUTextureFormat</span>
@@ -149,10 +380,14 @@ render.<span class="hljs-title function_">init</span>()
         <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
         <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
       </button></pre>
-<p>When we instantiate the class, we pass in a canvas reference. This allows the class to work with any canvas which could be handy in the future maybe🤷‍♂️. The <code>init</code> function is responsible for setting up the rendering loop which I'll now explain.</p>
-<h2 id="heading-getting-a-gpu-device-and-configuring-canvas">Getting a GPU device and configuring canvas</h2>
-<p>The first thing we need is access to the GPU device on the host machine.</p>
-<pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">async</span> <span class="hljs-title function_">getGPUDevice</span>(<span class="hljs-params"></span>) {
+                                        <p>When we instantiate the class, we pass in a canvas reference. This allows the
+                                            class to work with any canvas which could be handy in the future maybe🤷‍♂️.
+                                            The <code>init</code> function is responsible for setting up the rendering
+                                            loop which I'll now explain.</p>
+                                        <h2 id="heading-getting-a-gpu-device-and-configuring-canvas">Getting a GPU
+                                            device and configuring canvas</h2>
+                                        <p>The first thing we need is access to the GPU device on the host machine.</p>
+                                        <pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">async</span> <span class="hljs-title function_">getGPUDevice</span>(<span class="hljs-params"></span>) {
         <span class="hljs-keyword">var</span> adapter = <span class="hljs-keyword">await</span> navigator.<span class="hljs-property">gpu</span>?.<span class="hljs-title function_">requestAdapter</span>()
         <span class="hljs-keyword">const</span> device = <span class="hljs-keyword">await</span> adapter?.<span class="hljs-title function_">requestDevice</span>()
         <span class="hljs-keyword">if</span> (!device) {
@@ -170,8 +405,8 @@ render.<span class="hljs-title function_">init</span>()
         <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
         <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
       </button></pre>
-<p>Next, we need to set up the canvas to accept the output from our GPU.</p>
-<pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-keyword">private</span> <span class="hljs-title function_">configCanvas</span>(<span class="hljs-params"></span>) {
+                                        <p>Next, we need to set up the canvas to accept the output from our GPU.</p>
+                                        <pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-keyword">private</span> <span class="hljs-title function_">configCanvas</span>(<span class="hljs-params"></span>) {
         <span class="hljs-keyword">var</span> context = <span class="hljs-variable language_">this</span>.<span class="hljs-property">canvas</span>.<span class="hljs-title function_">getContext</span>(<span class="hljs-string">"webgpu"</span>)
         <span class="hljs-keyword">if</span> (!context) {
             <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">fail</span>(<span class="hljs-string">"Failed to get canvas context"</span>)
@@ -189,9 +424,9 @@ render.<span class="hljs-title function_">init</span>()
         <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
         <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
       </button></pre>
-<h2 id="heading-loading-shaders">Loading shaders</h2>
-<p>After setting up the canvas, we load in the vertex and fragment shaders.</p>
-<pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-keyword">private</span> <span class="hljs-title function_">loadShaders</span>(<span class="hljs-params"></span>) {
+                                        <h2 id="heading-loading-shaders">Loading shaders</h2>
+                                        <p>After setting up the canvas, we load in the vertex and fragment shaders.</p>
+                                        <pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-keyword">private</span> <span class="hljs-title function_">loadShaders</span>(<span class="hljs-params"></span>) {
         <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">loadVertexShader</span>()
         <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">loadFragmentShader</span>()
     }
@@ -255,11 +490,27 @@ render.<span class="hljs-title function_">init</span>()
         <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
         <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
       </button></pre>
-<p>You'll notice I've now split the vertex and fragment shaders into separate variables. This will allow us to easily change the vertex and fragment shaders on the fly as we go forward. A downside of this is the duplication of the VertexOut struct but that's not so bad right?</p>
-<p>Another important point is that the <code>@builtin(position) pos: vec4f</code> in the vertex and fragment shaders do not contain the same values. For the vertex shader, the pos effectively only contains three values. These three points form a region that encompasses some pixels which are determined by a process called rasterization. The fragment shader is then executed for every pixel. What this means in practice is that the pos variable in the fragment shader contains the respective pixel coordinates and has as many elements as pixels in the defined region. This is an important point to remember if you want to do any fancy shader stuff and you can find more details about it in this <a target="_blank" href="https://webgpufundamentals.org/webgpu/lessons/webgpu-inter-stage-variables.html" rel="noopener noreferrer nofollow ugc">article</a>.</p>
-<h2 id="heading-configuring-pipeline">Configuring pipeline</h2>
-<p>Our pipeline is still pretty basic so it hasn't changed from our last version</p>
-<pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-keyword">private</span> <span class="hljs-title function_">configurePipeline</span>(<span class="hljs-params"></span>) {
+                                        <p>You'll notice I've now split the vertex and fragment shaders into separate
+                                            variables. This will allow us to easily change the vertex and fragment
+                                            shaders on the fly as we go forward. A downside of this is the duplication
+                                            of the VertexOut struct but that's not so bad right?</p>
+                                        <p>Another important point is that the
+                                            <code>@builtin(position) pos: vec4f</code> in the vertex and fragment
+                                            shaders do not contain the same values. For the vertex shader, the pos
+                                            effectively only contains three values. These three points form a region
+                                            that encompasses some pixels which are determined by a process called
+                                            rasterization. The fragment shader is then executed for every pixel. What
+                                            this means in practice is that the pos variable in the fragment shader
+                                            contains the respective pixel coordinates and has as many elements as pixels
+                                            in the defined region. This is an important point to remember if you want to
+                                            do any fancy shader stuff and you can find more details about it in this <a
+                                                target="_blank"
+                                                href="https://webgpufundamentals.org/webgpu/lessons/webgpu-inter-stage-variables.html"
+                                                rel="noopener noreferrer nofollow ugc">article</a>.</p>
+                                        <h2 id="heading-configuring-pipeline">Configuring pipeline</h2>
+                                        <p>Our pipeline is still pretty basic so it hasn't changed from our last version
+                                        </p>
+                                        <pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-keyword">private</span> <span class="hljs-title function_">configurePipeline</span>(<span class="hljs-params"></span>) {
         <span class="hljs-variable language_">this</span>.<span class="hljs-property">pipeline</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">device</span>.<span class="hljs-title function_">createRenderPipeline</span>({
             <span class="hljs-attr">label</span>: <span class="hljs-string">"Render Pipeline"</span>,
             <span class="hljs-attr">layout</span>: <span class="hljs-string">"auto"</span>,
@@ -286,9 +537,9 @@ render.<span class="hljs-title function_">init</span>()
         <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
         <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
       </button></pre>
-<h2 id="heading-rendering-function">Rendering function</h2>
-<p>This too is still the basic implementation with nothing special</p>
-<pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-keyword">private</span> <span class="hljs-title function_">render</span>(<span class="hljs-params"></span>) {
+                                        <h2 id="heading-rendering-function">Rendering function</h2>
+                                        <p>This too is still the basic implementation with nothing special</p>
+                                        <pre style="position: relative;"><code class="lang-typescript hljs language-typescript" data-highlighted="yes">    <span class="hljs-keyword">private</span> <span class="hljs-title function_">render</span>(<span class="hljs-params"></span>) {
 
         (<span class="hljs-variable language_">this</span>.<span class="hljs-property">renderPassDescriptor</span>.<span class="hljs-property">colorAttachments</span> <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>)[<span class="hljs-number">0</span>].<span class="hljs-property">view</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">context</span>.<span class="hljs-title function_">getCurrentTexture</span>().<span class="hljs-title function_">createView</span>()
 
@@ -305,6 +556,33 @@ render.<span class="hljs-title function_">init</span>()
         <i class="fa-jelly fa-clipboard copy-icon" style="font-size: 16px;"></i>
         <i class="fa-jelly fa-check check-icon" style="font-size: 16px; display: none;"></i>
       </button></pre>
-<h1 id="heading-conclusion">Conclusion</h1>
-<p>Congratulations 👏👏👏. You just spent all this effort to recreate the same thing you made last time. But, now you have TYPES 🎉🎉. I recognize that this might be a bit annoying but I felt it important to show all this so that we can start on the same page moving forward. Sadly I'll have to stop here for now as this article is already pretty long but next, we'll begin refining this foundation and shaping it into our wonderful dodgy engine.</p>
-</div></div></div></div><div class="max-w-2xl mx-auto border-t border-border pt-8 space-y-5"><div class="flex flex-wrap items-center gap-2"><a class="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 text-sm text-muted-foreground transition hover:border-primary hover:text-primary" href="/tag/game-development">#<!-- -->game-development</a><a class="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 text-sm text-muted-foreground transition hover:border-primary hover:text-primary" href="/tag/web-development">#<!-- -->web-development</a><a class="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 text-sm text-muted-foreground transition hover:border-primary hover:text-primary" href="/tag/game-engine">#<!-- -->game-engine</a><a class="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 text-sm text-muted-foreground transition hover:border-primary hover:text-primary" href="/tag/vite">#<!-- -->vite</a><a class="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 text-sm text-muted-foreground transition hover:border-primary hover:text-primary" href="/tag/typescript">#<!-- -->typescript</a></div></div></div></article></div></div></div></section>
+                                        <h1 id="heading-conclusion">Conclusion</h1>
+                                        <p>Congratulations 👏👏👏. You just spent all this effort to recreate the same
+                                            thing you made last time. But, now you have TYPES 🎉🎉. I recognize that
+                                            this might be a bit annoying but I felt it important to show all this so
+                                            that we can start on the same page moving forward. Sadly I'll have to stop
+                                            here for now as this article is already pretty long but next, we'll begin
+                                            refining this foundation and shaping it into our wonderful dodgy engine.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="max-w-2xl mx-auto border-t border-border pt-8 space-y-5">
+                            <div class="flex flex-wrap items-center gap-2"><a
+                                    class="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 text-sm text-muted-foreground transition hover:border-primary hover:text-primary"
+                                    href="/tag/game-development">#<!-- -->game-development</a><a
+                                    class="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 text-sm text-muted-foreground transition hover:border-primary hover:text-primary"
+                                    href="/tag/web-development">#<!-- -->web-development</a><a
+                                    class="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 text-sm text-muted-foreground transition hover:border-primary hover:text-primary"
+                                    href="/tag/game-engine">#<!-- -->game-engine</a><a
+                                    class="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 text-sm text-muted-foreground transition hover:border-primary hover:text-primary"
+                                    href="/tag/vite">#<!-- -->vite</a><a
+                                    class="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 text-sm text-muted-foreground transition hover:border-primary hover:text-primary"
+                                    href="/tag/typescript">#<!-- -->typescript</a></div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
